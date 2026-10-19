@@ -1,28 +1,28 @@
 /**
- * QUIX LAUNCHER — OFFICIAL LANDING PAGE INTERACTIONS
- * Senior Front-End Architecture: Vanilla JS, Zero External Runtime Dependencies
+ * QUIX LAUNCHER — OFFICIAL INTERFACE LOGIC
+ * High-craft vanilla JavaScript: Zero external dependencies, pure performance.
  */
 
 document.addEventListener('DOMContentLoaded', () => {
-  initHeaderScroll();
-  initMobileNavigation();
-  initSpotlightEffect();
+  initNavScroll();
+  initMobileMenu();
   initMockupTabs();
-  initMemoryGaugeInteractive();
+  initModToggles();
+  initInteractiveRamSlider();
 });
 
 /**
- * 1. Header scroll effect (blur & border enhancement)
+ * 1. Sticky Navigation Scroll Polish
  */
-function initHeaderScroll() {
-  const header = document.querySelector('.site-header');
-  if (!header) return;
+function initNavScroll() {
+  const nav = document.querySelector('.top-nav');
+  if (!nav) return;
 
   const handleScroll = () => {
-    if (window.scrollY > 20) {
-      header.classList.add('scrolled');
+    if (window.scrollY > 15) {
+      nav.classList.add('scrolled');
     } else {
-      header.classList.remove('scrolled');
+      nav.classList.remove('scrolled');
     }
   };
 
@@ -31,82 +31,51 @@ function initHeaderScroll() {
 }
 
 /**
- * 2. Accessible Mobile Navigation Toggle
+ * 2. Mobile Navigation Drawer
  */
-function initMobileNavigation() {
-  const toggleBtn = document.querySelector('.menu-toggle');
-  const navLinks = document.querySelector('.nav-links');
+function initMobileMenu() {
+  const toggle = document.querySelector('.mobile-nav-toggle');
+  const menu = document.querySelector('.nav-menu');
 
-  if (!toggleBtn || !navLinks) return;
+  if (!toggle || !menu) return;
 
-  toggleBtn.addEventListener('click', () => {
-    const isExpanded = toggleBtn.getAttribute('aria-expanded') === 'true';
-    toggleBtn.setAttribute('aria-expanded', !isExpanded);
-    navLinks.classList.toggle('mobile-open');
+  toggle.addEventListener('click', () => {
+    const active = menu.classList.toggle('is-active');
+    toggle.setAttribute('aria-expanded', active ? 'true' : 'false');
   });
 
-  // Close when clicking an anchor link
-  navLinks.querySelectorAll('a').forEach(link => {
+  menu.querySelectorAll('a').forEach(link => {
     link.addEventListener('click', () => {
-      navLinks.classList.remove('mobile-open');
-      toggleBtn.setAttribute('aria-expanded', 'false');
-    });
-  });
-
-  // Close on Escape key
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && navLinks.classList.contains('mobile-open')) {
-      navLinks.classList.remove('mobile-open');
-      toggleBtn.setAttribute('aria-expanded', 'false');
-    }
-  });
-}
-
-/**
- * 3. Magic UI Mouse-Following Spotlight Card Effect
- * Computes cursor coordinates relative to each card and passes them as CSS variables
- */
-function initSpotlightEffect() {
-  const cards = document.querySelectorAll('.spotlight-card, .bento-card');
-
-  cards.forEach(card => {
-    card.addEventListener('mousemove', (e) => {
-      const rect = card.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      card.style.setProperty('--mouse-x', `${x}px`);
-      card.style.setProperty('--mouse-y', `${y}px`);
+      menu.classList.remove('is-active');
+      toggle.setAttribute('aria-expanded', 'false');
     });
   });
 }
 
 /**
- * 4. Interactive Launcher UI Concept View Switcher
- * Allows visitors to toggle between:
- * - Library View
- * - Discover Hub (Modrinth & CurseForge)
- * - Engine & Shaders Studio
+ * 3. Desktop Mockup Tab Switching
+ * Switches between: My Instances (tab-instances), Discover Hub (tab-discover), Engine & Shaders (tab-engine)
  */
 function initMockupTabs() {
-  const sidebarButtons = document.querySelectorAll('[data-mockup-target]');
-  const views = document.querySelectorAll('.app-view-tab');
+  const buttons = document.querySelectorAll('[data-view-target]');
+  const panels = document.querySelectorAll('.view-panel');
 
-  if (!sidebarButtons.length || !views.length) return;
+  if (!buttons.length || !panels.length) return;
 
-  sidebarButtons.forEach(button => {
-    button.addEventListener('click', () => {
-      const targetId = button.getAttribute('data-mockup-target');
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const targetId = btn.getAttribute('data-view-target');
 
-      // Update button active state
-      sidebarButtons.forEach(btn => btn.classList.remove('active'));
-      button.classList.add('active');
+      // Update tab button active states
+      buttons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
 
-      // Switch view panel
-      views.forEach(view => {
-        if (view.id === targetId) {
-          view.classList.add('active');
+      // Reveal target view panel
+      panels.forEach(panel => {
+        if (panel.id === targetId) {
+          panel.classList.add('active');
         } else {
-          view.classList.remove('active');
+          panel.classList.remove('active');
         }
       });
     });
@@ -114,22 +83,71 @@ function initMockupTabs() {
 }
 
 /**
- * 5. Interactive Memory / Engine Slider in Mockup
+ * 4. Interactive Mod Tray Toggles
+ * Allows visitors to click the toggle switches next to mods in the mockup
  */
-function initMemoryGaugeInteractive() {
-  const track = document.querySelector('.engine-slider-track');
-  const fill = document.querySelector('.engine-slider-fill');
-  const label = document.querySelector('[data-memory-val]');
+function initModToggles() {
+  const toggles = document.querySelectorAll('.toggle-switch-fake');
 
-  if (!track || !fill || !label) return;
+  toggles.forEach(toggle => {
+    const handleToggle = () => {
+      const isChecked = toggle.getAttribute('aria-checked') === 'true';
+      const newState = !isChecked;
+      toggle.setAttribute('aria-checked', newState ? 'true' : 'false');
+
+      if (newState) {
+        toggle.style.background = 'var(--crimson)';
+        toggle.style.setProperty('--toggle-pos', 'right');
+        const dot = toggle.closest('.mod-row-item')?.querySelector('.mod-dot');
+        if (dot) dot.style.background = 'var(--emerald)';
+      } else {
+        toggle.style.background = '#2B3342';
+        const dot = toggle.closest('.mod-row-item')?.querySelector('.mod-dot');
+        if (dot) dot.style.background = 'var(--text-dim)';
+      }
+    };
+
+    toggle.addEventListener('click', handleToggle);
+    toggle.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        handleToggle();
+      }
+    });
+  });
+}
+
+/**
+ * 5. Interactive JVM Memory Allocation Slider in Mockup
+ * Clicking along the track updates the bar width, the readout, and inspector specs in real-time!
+ */
+function initInteractiveRamSlider() {
+  const track = document.getElementById('ram-slider-track');
+  const fill = document.getElementById('ram-slider-fill');
+  const readout = document.getElementById('slider-readout');
+  const inspectorMem = document.querySelector('[data-inspector-mem]');
+  const sidebarMem = document.querySelector('[data-sidebar-mem]');
+
+  if (!track || !fill || !readout) return;
 
   track.addEventListener('click', (e) => {
     const rect = track.getBoundingClientRect();
     const clickX = Math.max(0, Math.min(e.clientX - rect.left, rect.width));
     const percent = Math.round((clickX / rect.width) * 100);
-    const gigabytes = (2 + (percent / 100) * 14).toFixed(1); // 2GB to 16GB
+
+    // Map 0-100% to 2GB - 16GB
+    const totalGB = (2 + (percent / 100) * 14).toFixed(1);
+    const mbValue = Math.round(totalGB * 1024);
 
     fill.style.width = `${percent}%`;
-    label.textContent = `${gigabytes} GB`;
+    readout.textContent = `${totalGB} GB`;
+
+    if (inspectorMem) {
+      inspectorMem.textContent = `${mbValue.toLocaleString()} MB (${totalGB} GB)`;
+    }
+
+    if (sidebarMem) {
+      sidebarMem.textContent = `${mbValue.toLocaleString()} MB Heap Active`;
+    }
   });
 }
