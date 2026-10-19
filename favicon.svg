@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-labelledby="title">
+<title id="title">Quix symbol</title>
+<defs>
+<linearGradient id="white" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#ffffff"/><stop offset="1" stop-color="#c5cbd5"/></linearGradient>
+<linearGradient id="red" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ff747b"/><stop offset="1" stop-color="#d52c39"/></linearGradient>
+</defs>
+<path d="M42 11H84L113 40V81L97 97 82 82 91 73V49L75 33H51L35 49V75L51 91H71V114H42L12 84V40Z" fill="url(#white)"/>
+<path d="M73 67 86 54 119 88 106 101Z" fill="url(#red)"/>
+<rect x="109" y="110" width="12" height="12" rx="2" fill="#e5484d"/>
+</svg>
