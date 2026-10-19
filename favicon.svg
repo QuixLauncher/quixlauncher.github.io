@@ -1,10 +1,28 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-labelledby="title">
-<title id="title">Quix symbol</title>
-<defs>
-<linearGradient id="white" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#ffffff"/><stop offset="1" stop-color="#c5cbd5"/></linearGradient>
-<linearGradient id="red" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ff747b"/><stop offset="1" stop-color="#d52c39"/></linearGradient>
-</defs>
-<path d="M42 11H84L113 40V81L97 97 82 82 91 73V49L75 33H51L35 49V75L51 91H71V114H42L12 84V40Z" fill="url(#white)"/>
-<path d="M73 67 86 54 119 88 106 101Z" fill="url(#red)"/>
-<rect x="109" y="110" width="12" height="12" rx="2" fill="#e5484d"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <defs>
+    <linearGradient id="q-grad" x1="8" y1="8" x2="56" y2="56" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="60%" stop-color="#D6DEE8"/>
+      <stop offset="100%" stop-color="#8E99A8"/>
+    </linearGradient>
+    <linearGradient id="q-accent" x1="36" y1="36" x2="60" y2="60" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FF6A70"/>
+      <stop offset="100%" stop-color="#E5484D"/>
+    </linearGradient>
+    <filter id="q-glow" x="28" y="28" width="36" height="36" filterUnits="userSpaceOnUse">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+  <!-- Background squircle for standalone icon usage -->
+  <rect width="64" height="64" rx="16" fill="#0D1117"/>
+  <rect x="0.75" y="0.75" width="62.5" height="62.5" rx="15.25" stroke="#2A3240" stroke-width="1.5"/>
+
+  <!-- Geometric Q Outer Ring -->
+  <path d="M32 12C20.954 12 12 20.954 12 32C12 43.046 20.954 52 32 52C36.425 52 40.518 50.565 43.856 48.144L41.222 45.51C38.562 47.07 35.405 48 32 48C23.163 48 16 40.837 16 32C16 23.163 23.163 16 32 16C40.837 16 48 23.163 48 32C48 35.342 47.093 38.441 45.568 41.066L48.192 43.69C50.584 40.402 52 36.363 52 32C52 20.954 43.046 12 32 12Z" fill="url(#q-grad)"/>
+
+  <!-- Accent Slash/Tail with Glow -->
+  <g filter="url(#q-glow)">
+    <path d="M34 34L51 51M38 30L55 47" stroke="url(#q-accent)" stroke-width="3.5" stroke-linecap="round"/>
+  </g>
 </svg>

@@ -3,207 +3,763 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#0b0d12">
-  <meta name="description" content="Meet Quix — a free Minecraft Java Edition launcher in development. Your instances, modpacks, and custom content, all in one place.">
+  <meta name="theme-color" content="#0D1117">
+  
+  <!-- Primary Meta Tags -->
+  <title>Quix — The Modern Minecraft Java Launcher for Windows</title>
+  <meta name="title" content="Quix — The Modern Minecraft Java Launcher for Windows">
+  <meta name="description" content="Quix is a free, modern Minecraft Java Edition launcher in active planning and development. Effortless instance isolation, planned Modrinth & CurseForge integration, and zero bloat.">
+  
+  <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Quix — Your worlds. Your way.">
-  <meta property="og:description" content="A new home for your Minecraft setups. Quix is a free, independent launcher currently in development.">
-  <meta property="og:url" content="https://quixlauncher.github.io/QuixLauncher-Website/">
+  <meta property="og:url" content="https://quixlauncher.github.io/">
+  <meta property="og:title" content="Quix — The Modern Minecraft Java Launcher for Windows">
+  <meta property="og:description" content="A fresh, elegant home for your Minecraft Java setups. Isolated instances, unified mod discovery, and zero telemetry clutter.">
+  <meta property="og:image" content="./favicon.svg">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:title" content="Quix — The Modern Minecraft Java Launcher for Windows">
+  <meta property="twitter:description" content="A fresh, elegant home for your Minecraft Java setups. Free, independent, and Windows-first.">
+  <meta property="twitter:image" content="./favicon.svg">
+
+  <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="./favicon.svg">
+
+  <!-- Google Fonts: Plus Jakarta Sans & Sora -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <title>Quix — Your worlds. Your way.</title>
-  <style>
-    :root{color-scheme:dark;--bg:#0b0d12;--panel:#141820;--panel2:#191e28;--ink:#f5f7fb;--muted:#a1a9b9;--line:rgba(255,255,255,.085);--red:#e5484d;--red-soft:#ff747b}
-    *{box-sizing:border-box}
-    html{scroll-behavior:smooth}
-    body{margin:0;background:var(--bg);color:var(--ink);font-family:"DM Sans",Inter,system-ui,-apple-system,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
-    body:before{content:"";position:absolute;left:0;top:0;right:0;height:870px;pointer-events:none;background:radial-gradient(ellipse at 76% 21%,rgba(182,39,49,.17),transparent 43%),radial-gradient(ellipse at 14% 15%,rgba(85,98,139,.09),transparent 40%);z-index:0}
-    a{color:inherit;text-decoration:none}
-    button{font:inherit}
-    a:focus-visible,button:focus-visible{outline:2px solid #f58e95;outline-offset:4px}
-    .shell{width:min(1200px,calc(100% - 64px));margin-inline:auto;position:relative}
-    .display{font-family:"Space Grotesk","DM Sans",sans-serif;letter-spacing:-.048em}
-    .eyebrow{display:inline-flex;align-items:center;gap:9px;color:#d1d4de;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.13em}
-    .eyebrow:before{content:"";width:8px;height:8px;border-radius:100%;background:var(--red);box-shadow:0 0 0 4px rgba(229,72,77,.14)}
-    .topbar{height:80px;border-bottom:1px solid rgba(255,255,255,.045);position:relative;z-index:5}
-    .topbar .shell{height:100%;display:flex;align-items:center;justify-content:space-between}
-    .brand{display:inline-flex;align-items:center;gap:11px;font-family:"Space Grotesk",sans-serif;font-size:24px;font-weight:700;letter-spacing:-.085em}
-    .brand img{height:36px;width:36px;display:block}
-    .brand strong{letter-spacing:-.075em}
-    .nav{display:flex;align-items:center;gap:33px}
-    .nav a{font-size:13px;color:#abb2bf;font-weight:600;transition:color .2s}
-    .nav a:hover{color:white}
-    .status{display:inline-flex;align-items:center;gap:8px;font-size:12px;color:#e3e5e9;background:rgba(255,255,255,.055);border:1px solid var(--line);border-radius:99px;padding:10px 14px;white-space:nowrap}
-    .status i{width:6px;height:6px;background:#ff9e7a;border-radius:100%;box-shadow:0 0 0 3px rgba(255,158,122,.10)}
-    .mobile-menu{display:none;color:#fff;background:none;border:1px solid var(--line);border-radius:11px;padding:8px 12px;cursor:pointer}
-    .hero{padding:92px 0 90px;position:relative;z-index:1}
-    .hero-grid{display:grid;grid-template-columns:.95fr 1.15fr;gap:40px;align-items:center}
-    .hero h1{font-size:clamp(61px,6.4vw,94px);font-weight:700;line-height:1.045;margin:26px 0 24px;max-width:650px}
-    .hero h1 em{font-style:normal;color:var(--red-soft)}
-    .hero-copy{font-size:17px;line-height:1.82;color:#aab2c1;max-width:470px;margin:0}
-    .actions{display:flex;flex-wrap:wrap;gap:11px;margin-top:35px}
-    .btn{display:inline-flex;align-items:center;justify-content:center;gap:11px;min-height:47px;padding:0 21px;border-radius:12px;font-size:13px;font-weight:700;transition:transform .2s,background .2s,border-color .2s}
-    .btn:hover{transform:translateY(-2px)}
-    .btn-primary{color:#fff;background:#da3942;box-shadow:0 11px 35px rgba(218,57,66,.22)}
-    .btn-primary:hover{background:#ec5058}
-    .btn-secondary{background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.11);color:#f5f5f7}
-    .btn-secondary:hover{background:rgba(255,255,255,.09)}
-    .little-tags{display:flex;flex-wrap:wrap;gap:16px;margin-top:35px;color:#919aaa;font-size:12px}
-    .little-tags span{display:inline-flex;gap:7px;align-items:center}
-    .little-tags b{color:#ce6b70;font-size:13px}
-    .scene{position:relative;perspective:1100px;padding:10px 0 12px}
-    .scene:before{content:"";position:absolute;inset:4% -7%;background:radial-gradient(ellipse at center,rgba(229,72,77,.13),transparent 63%);filter:blur(30px)}
-    .window{overflow:hidden;position:relative;background:#11151b;border:1px solid rgba(255,255,255,.16);border-radius:17px;box-shadow:0 36px 90px rgba(0,0,0,.53),0 2px 5px rgba(0,0,0,.45);transform:rotateY(-5deg) rotateX(2deg);transform-origin:center left}
-    .windowhead{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,.075);padding:12px 16px;background:#171b23}
-    .traffic{display:flex;gap:6px}.traffic i{width:8px;height:8px;border-radius:50%;background:#343b47}.traffic i:first-child{background:#ae4950}
-    .windowhead span{font-size:10px;color:#747d8d;font-weight:700;letter-spacing:.02em}
-    .app-body{display:grid;grid-template-columns:64px 1fr;min-height:375px}
-    .app-sidebar{display:flex;flex-direction:column;align-items:center;gap:20px;padding:19px 9px;background:#131820;border-right:1px solid rgba(255,255,255,.065)}
-    .app-sidebar .mini-logo{width:29px;height:29px}
-    .app-sidebar .navglyph{height:26px;width:26px;display:grid;place-items:center;color:#647082;font-size:17px;border-radius:8px}
-    .app-sidebar .navglyph.on{color:#ff8c90;background:rgba(229,72,77,.14)}
-    .app-content{padding:18px}
-    .app-title{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:16px}
-    .app-title small{font-size:10px;color:#87909e}.app-title h3{font-size:19px;margin:5px 0 0;letter-spacing:-.04em}.avatar{height:28px;width:28px;border:1px solid rgba(255,255,255,.10);border-radius:10px;background:linear-gradient(145deg,#3c414c,#1d2028)}
-    .game-visual{height:216px;position:relative;overflow:hidden;border-radius:10px;border:1px solid rgba(255,255,255,.09);background:#231b27}
-    .game-visual svg{position:absolute;width:100%;height:100%;left:0;top:0;display:block}
-    .game-visual:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(9,10,16,.86),rgba(9,10,16,.20) 76%),linear-gradient(0deg,rgba(12,11,15,.42),transparent 65%)}
-    .game-text{position:absolute;z-index:2;left:21px;bottom:18px;max-width:240px}
-    .game-text small{font-size:10px;letter-spacing:.13em;color:#f5a5a3;font-weight:700}
-    .game-text h4{font-family:"Space Grotesk";font-size:22px;letter-spacing:-.05em;margin:6px 0 9px;line-height:1.08}
-    .game-text .fakeplay{display:inline-block;background:#d53e46;color:white;font-size:10px;font-weight:700;padding:8px 13px;border-radius:7px}
-    .instances-head{display:flex;justify-content:space-between;align-items:center;margin:14px 0 9px;font-size:11px;color:#dfe2e8;font-weight:700}
-    .instances-head span{color:#788291;font-size:10px;font-weight:600}
-    .instances{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-    .instance{border:1px solid rgba(255,255,255,.08);background:#191e27;border-radius:9px;padding:10px;display:flex;align-items:center;gap:9px}
-    .block{width:26px;height:26px;border-radius:6px;background:linear-gradient(135deg,#74926f 0%,#435e48 45%,#30251c 46%,#765b46);flex-shrink:0}
-    .block.alt{background:linear-gradient(145deg,#957678,#52454f 45%,#382e41 46%,#777b92)}
-    .instance b{font-size:10px;display:block;font-weight:700}.instance small{color:#7f8897;font-size:9px;display:block;margin-top:3px}
-    .preview-note{font-size:10px;color:#78818f;text-align:center;margin-top:15px}
-    .introline{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:20px 0;color:#8b94a5;font-size:12px;letter-spacing:.06em;text-transform:uppercase}
-    .introline .shell{display:flex;justify-content:center;align-items:center;gap:20px;flex-wrap:wrap}
-    .introline span.sep{color:#5e3440}
-    .section{padding:116px 0;position:relative}
-    .section-head{max-width:670px;margin-bottom:46px}
-    .section-head h2{font-family:"Space Grotesk";font-weight:700;letter-spacing:-.055em;font-size:clamp(35px,4.1vw,57px);line-height:1.15;margin:20px 0 16px}
-    .section-head p{font-size:16px;line-height:1.8;color:#a0a9b7;max-width:590px}
-    .features{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:15px}
-    .feature{position:relative;min-height:275px;overflow:hidden;border:1px solid var(--line);border-radius:20px;background:linear-gradient(150deg,#181d26,#11141a);padding:27px;display:flex;flex-direction:column;justify-content:space-between}
-    .feature:first-child{background:radial-gradient(circle at 85% 28%,rgba(226,77,83,.15),transparent 58%),linear-gradient(155deg,#1d202a,#12151c)}
-    .feature h3{font-family:"Space Grotesk";font-size:22px;letter-spacing:-.038em;margin:11px 0 9px}
-    .feature p{font-size:13px;color:#969fac;line-height:1.7;margin:0;max-width:300px}
-    .ficon{display:flex;align-items:center;justify-content:center;width:45px;height:45px;border-radius:13px;color:#ff8d91;background:rgba(229,72,77,.11);border:1px solid rgba(229,72,77,.15);font-family:"Space Grotesk";font-size:20px;font-weight:700}
-    .feature.wide{grid-column:span 2;min-height:228px;background:linear-gradient(125deg,#20202a,#141820)}
-    .feature .lines{position:absolute;right:20px;top:27px;width:44%;display:grid;gap:9px;opacity:.48;transform:rotate(-8deg)}
-    .lines i{display:block;height:24px;border:1px solid #45505f;background:#262d3a;border-radius:7px}
-    .lines i:nth-child(2){width:85%;margin-left:15%}.lines i:nth-child(3){width:92%;margin-left:4%}
-    .feature.wide .ficon{background:rgba(255,255,255,.07);color:#d6dbe5;border-color:rgba(255,255,255,.08)}
-    .roadmap-wrap{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:radial-gradient(ellipse at 90% 25%,rgba(229,72,77,.065),transparent 60%)}
-    .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:40px}
-    .step{border-top:1px solid #414650;padding-top:23px;min-height:155px}
-    .step .num{font-family:"Space Grotesk";font-size:12px;color:#eb6a73;font-weight:700}
-    .step h3{font-size:17px;font-family:"Space Grotesk";letter-spacing:-.03em;margin:16px 0 9px}
-    .step p{font-size:13px;color:#97a1b0;line-height:1.75;max-width:295px}
-    .closing{padding:108px 0}
-    .closing-card{text-align:center;border:1px solid rgba(229,72,77,.19);background:radial-gradient(ellipse at 50% 0,rgba(229,72,77,.13),transparent 65%),#151820;border-radius:26px;padding:80px 20px}
-    .closing-card h2{font-family:"Space Grotesk";font-size:clamp(37px,4vw,58px);letter-spacing:-.06em;line-height:1.15;margin:20px auto;max-width:640px}
-    .closing-card p{color:#aeb6c2;font-size:15px;line-height:1.75;margin:0 auto 30px;max-width:550px}
-    footer{border-top:1px solid var(--line);padding:32px 0 40px}
-    footer .shell{display:flex;justify-content:space-between;align-items:flex-start;gap:30px}
-    footer .brand{font-size:20px}.footnote{font-size:11px;line-height:1.8;color:#727c8a;max-width:690px;margin:12px 0 0}
-    .footer-links{display:flex;gap:18px;white-space:nowrap;font-size:12px;color:#a4adbb;padding-top:9px}
-    .footer-links a:hover{color:white}
-    ::selection{background:#a5303c;color:#fff}
-    @media(max-width:1000px){.hero-grid{grid-template-columns:1fr;gap:55px}.hero h1{max-width:720px}.hero-copy{max-width:600px}.scene{max-width:720px;width:100%;margin-inline:auto}.window{transform:none}.features{grid-template-columns:1fr 1fr}.feature:first-child{grid-column:span 2;min-height:235px}.feature.wide{grid-column:span 2}}
-    @media(max-width:690px){.shell{width:min(100% - 36px,1200px)}.topbar{height:70px}.status{display:none}.mobile-menu{display:block}.nav{display:none;position:absolute;right:0;top:68px;left:0;background:#191d26;border:1px solid var(--line);padding:20px;border-radius:16px;flex-direction:column;align-items:stretch;gap:18px;box-shadow:0 18px 40px rgba(0,0,0,.45)}.nav.open{display:flex}.hero{padding:64px 0 68px}.hero h1{font-size:clamp(52px,11.7vw,74px);margin:22px 0}.hero-copy{font-size:15px;line-height:1.75}.little-tags{gap:11px;margin-top:28px}.scene{margin-inline:0}.window{border-radius:13px}.app-body{grid-template-columns:43px 1fr}.app-sidebar{padding:13px 5px;gap:13px}.app-sidebar .mini-logo{width:24px;height:24px}.app-content{padding:11px}.game-visual{height:188px}.game-text{left:13px;bottom:12px}.game-text h4{font-size:18px}.instance{padding:7px;gap:6px}.instance b{font-size:9px}.instance small{font-size:8px}.instances{gap:6px}.block{width:21px;height:21px}.section{padding:79px 0}.section-head h2{font-size:38px}.features{grid-template-columns:1fr}.feature,.feature:first-child,.feature.wide{grid-column:auto;min-height:225px}.steps{grid-template-columns:1fr;gap:12px}.step{min-height:auto}.closing{padding:70px 0}.closing-card{padding:59px 21px}.closing-card h2{font-size:39px}footer .shell{flex-direction:column}.footer-links{padding:0}}
-    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.btn{transition:none}.window{transform:none}}
-  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Sora:wght@600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="./style.css">
 </head>
 <body>
-  <header class="topbar">
-    <div class="shell">
-      <a class="brand" href="#top" aria-label="Quix home"><img src="./favicon.svg" alt=""><strong>quix</strong></a>
-      <nav class="nav" id="nav" aria-label="Main navigation">
-        <a href="#vision">The vision</a><a href="#features">Features</a><a href="#roadmap">Roadmap</a><a href="https://github.com/QuixLauncher/quix-launcher" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+
+  <!-- Ambient Lighting Elements -->
+  <div class="bg-ambient" aria-hidden="true">
+    <div class="ambient-glow-top"></div>
+    <div class="ambient-glow-side"></div>
+    <div class="ambient-grid"></div>
+  </div>
+
+  <!-- Global Sticky Navigation Header -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="#top" class="brand-lockup" aria-label="Quix Homepage">
+        <div class="brand-icon">
+          <img src="./favicon.svg" alt="Quix brand icon" width="34" height="34">
+        </div>
+        <span class="brand-name">quix</span>
+      </a>
+
+      <nav aria-label="Main Navigation">
+        <ul class="nav-links">
+          <li><a href="#why">Why Quix</a></li>
+          <li><a href="#preview">Interface Concept</a></li>
+          <li><a href="#features">Architecture</a></li>
+          <li><a href="#roadmap">Roadmap</a></li>
+        </ul>
       </nav>
-      <div class="status"><i aria-hidden="true"></i> In development</div>
-      <button class="mobile-menu" type="button" aria-label="Toggle navigation" aria-expanded="false" aria-controls="nav">Menu ☰</button>
+
+      <div class="header-actions">
+        <div class="badge-pill" title="Currently in early design & architecture">
+          <span class="dot"></span>
+          <span>In Planning · Windows First</span>
+        </div>
+
+        <a href="https://github.com/QuixLauncher/quix-launcher" target="_blank" rel="noopener noreferrer" class="github-star-btn" aria-label="Star Quix on GitHub">
+          <svg class="star-icon" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" aria-hidden="true">
+            <path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"/>
+          </svg>
+          <span>Star on GitHub</span>
+        </a>
+
+        <button class="menu-toggle" type="button" aria-label="Toggle Navigation Menu" aria-expanded="false">
+          ☰
+        </button>
+      </div>
     </div>
   </header>
+
   <main id="top">
-    <section class="hero" id="vision">
-      <div class="shell hero-grid">
-        <div class="hero-left">
-          <span class="eyebrow">A new home for Minecraft</span>
-          <h1 class="display">Your worlds.<br><em>Your way.</em></h1>
-          <p class="hero-copy">Meet Quix. A free Minecraft Java Edition launcher in the making, designed to bring your instances, modpacks and custom content together — without the clutter.</p>
-          <div class="actions"><a class="btn btn-primary" href="#features">Discover Quix <span aria-hidden="true">↗</span></a><a class="btn btn-secondary" href="https://github.com/QuixLauncher/quix-launcher" target="_blank" rel="noopener noreferrer">View on GitHub <span aria-hidden="true">↗</span></a></div>
-          <div class="little-tags"><span><b>✓</b> Free to use</span><span><b>✓</b> Windows first</span><span><b>✓</b> Minecraft Java Edition</span></div>
+
+    <!-- 1. HERO SECTION -->
+    <section class="hero-section">
+      <div class="container hero-content">
+        <div class="eyebrow">
+          <span class="eyebrow-line"></span>
+          <span>A New Paradigm for Minecraft Java</span>
+          <span class="eyebrow-line"></span>
         </div>
-        <div class="scene" aria-label="Illustrative Quix launcher design concept">
-          <div class="window">
-            <div class="windowhead"><div class="traffic"><i></i><i></i><i></i></div><span>QUIX · EARLY DESIGN CONCEPT</span><span>— &nbsp; □ &nbsp; ×</span></div>
-            <div class="app-body">
-              <div class="app-sidebar"><img class="mini-logo" src="./favicon.svg" alt=""><span class="navglyph on">⌂</span><span class="navglyph">▦</span><span class="navglyph">◇</span><span class="navglyph">↓</span><span class="navglyph" style="margin-top:auto">⚙</span></div>
-              <div class="app-content">
-                <div class="app-title"><div><small>GOOD TO SEE YOU</small><h3>Welcome back.</h3></div><div class="avatar"></div></div>
-                <div class="game-visual">
-                  <svg viewBox="0 0 760 360" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-                    <defs><linearGradient id="sky" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#45252d"/><stop offset=".65" stop-color="#c06058"/><stop offset="1" stop-color="#e3a177"/></linearGradient><linearGradient id="mountain" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#343449"/><stop offset="1" stop-color="#101b21"/></linearGradient></defs>
-                    <rect width="760" height="360" fill="url(#sky)"/><circle cx="594" cy="97" r="70" fill="#efa383" opacity=".53"/><path d="M0 240 110 157 179 197 300 96 417 216 550 107 681 191 760 140V360H0Z" fill="#665261" opacity=".55"/><path d="m0 295 101-111 53 43 122-132 144 146 90-88 99 98 67-84 84 59v135H0Z" fill="url(#mountain)"/>
-                    <path d="m0 296 101-111 53 43 122-132 144 146 90-88 99 98 67-84 84 59v135H0Z" fill="none" stroke="#899099" stroke-opacity=".22" stroke-width="2"/>
-                    <path d="M364 360v-92h29v-29h29v-28h31v29h26v29h26v91Z" fill="#23252a"/><path d="M498 360v-75h36v-40h36v-30h35v29h36v41h40v75Z" fill="#162027"/>
-                    <path d="M0 331h91v-26h34v-24h34v79H0Z" fill="#151d23"/><path d="M0 348h255v-24h58v36H0ZM586 329h70v-21h58v-19h46v71H586Z" fill="#0c161a"/>
-                    <path d="M665 355v-132h16v-32h16v32h16v132Z" fill="#10191d"/><rect x="684" y="256" width="11" height="49" fill="#e66a62" opacity=".7"/>
-                    <rect width="760" height="360" fill="#15121e" opacity=".13"/>
-                  </svg>
-                  <div class="game-text"><small>YOUR ADVENTURE AWAITS</small><h4>Every world starts<br>somewhere.</h4><span class="fakeplay">Coming soon →</span></div>
-                </div>
-                <div class="instances-head">Your instances <span>Manage all →</span></div>
-                <div class="instances"><div class="instance"><span class="block"></span><span><b>Survival</b><small>Vanilla · Example</small></span></div><div class="instance"><span class="block alt"></span><span><b>Modded world</b><small>NeoForge · Example</small></span></div></div>
+
+        <h1 class="hero-title">
+          Crafted for players.<br>
+          <span class="gradient-text">Engineered for control.</span>
+        </h1>
+
+        <p class="hero-description">
+          Quix is an independent, high-performance Minecraft Java Edition launcher designed to eliminate setup fatigue. Seamless instance isolation, unified modpack discovery, and zero telemetry clutter — wrapped in a precision Windows desktop experience.
+        </p>
+
+        <div class="hero-actions">
+          <a href="#preview" class="btn btn-primary">
+            <span>Explore the Concept</span>
+            <svg class="arrow-move" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+              <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 0 1 1.414 0l6 6a1 1 0 0 1 0 1.414l-6 6a1 1 0 0 1-1.414-1.414L14.586 11H3a1 1 0 1 1 0-2h11.586l-4.293-4.293a1 1 0 0 1 0-1.414Z" clip-rule="evenodd"/>
+            </svg>
+          </a>
+
+          <a href="https://github.com/QuixLauncher/quix-launcher" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+            <svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor" aria-hidden="true">
+              <path d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"/>
+            </svg>
+            <span>Track on GitHub</span>
+          </a>
+        </div>
+
+        <div class="hero-badges-strip">
+          <span>
+            <svg viewBox="0 0 20 20" width="15" height="15" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 0 1 0 1.414l-8 8a1 1 0 0 1-1.414 0l-4-4a1 1 0 0 1 1.414-1.414L8 12.586l7.293-7.293a1 1 0 0 1 1.414 0Z" clip-rule="evenodd"/></svg>
+            Windows 10 / 11 Focused
+          </span>
+          <span>
+            <svg viewBox="0 0 20 20" width="15" height="15" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 0 1 0 1.414l-8 8a1 1 0 0 1-1.414 0l-4-4a1 1 0 0 1 1.414-1.414L8 12.586l7.293-7.293a1 1 0 0 1 1.414 0Z" clip-rule="evenodd"/></svg>
+            Planned Modrinth & CurseForge
+          </span>
+          <span>
+            <svg viewBox="0 0 20 20" width="15" height="15" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 0 1 0 1.414l-8 8a1 1 0 0 1-1.414 0l-4-4a1 1 0 0 1 1.414-1.414L8 12.586l7.293-7.293a1 1 0 0 1 1.414 0Z" clip-rule="evenodd"/></svg>
+            Zero Ad Clutter
+          </span>
+          <span>
+            <svg viewBox="0 0 20 20" width="15" height="15" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 0 1 0 1.414l-8 8a1 1 0 0 1-1.414 0l-4-4a1 1 0 0 1 1.414-1.414L8 12.586l7.293-7.293a1 1 0 0 1 1.414 0Z" clip-rule="evenodd"/></svg>
+            Sandboxed Instances
+          </span>
+        </div>
+
+        <!-- 2. INTERACTIVE PRODUCT WINDOW MOCKUP -->
+        <div class="product-stage" id="preview">
+          <div class="window-frame">
+            <!-- Window Titlebar -->
+            <div class="window-titlebar">
+              <div class="window-traffic">
+                <span class="traffic-light close"></span>
+                <span class="traffic-light min"></span>
+                <span class="traffic-light max"></span>
+              </div>
+              <div class="window-tag">QUIX · CONCEPTUAL DESKTOP ARCHITECTURE · PRE-RELEASE PREVIEW</div>
+              <div class="window-user-pill">
+                <div class="user-avatar-mini"></div>
+                <span>Session: Local Dev</span>
               </div>
             </div>
+
+            <!-- App Container -->
+            <div class="app-container">
+              <!-- Left Sidebar -->
+              <aside class="app-sidebar">
+                <ul class="sidebar-nav-list">
+                  <li>
+                    <button class="sidebar-item-btn active" type="button" data-mockup-target="view-library">
+                      <svg viewBox="0 0 20 20" fill="currentColor"><path d="M7 3a1 1 0 0 0 0 2h6a1 1 0 1 0 0-2H7ZM4 7a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v10a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7Z"/></svg>
+                      <span>My Instances</span>
+                    </button>
+                  </li>
+                  <li>
+                    <button class="sidebar-item-btn" type="button" data-mockup-target="view-hub">
+                      <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 2a8 8 0 1 0 0 16 8 8 0 0 0 0-16Zm1 11H9v-2h2v2Zm0-4H9V5h2v4Z"/></svg>
+                      <span>Discover Hub</span>
+                    </button>
+                  </li>
+                  <li>
+                    <button class="sidebar-item-btn" type="button" data-mockup-target="view-engine">
+                      <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 0 1-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 0 1 .947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 0 1 2.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 0 1 2.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 0 1 .947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 0 1-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 0 1-2.287-.947ZM10 13a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" clip-rule="evenodd"/></svg>
+                      <span>Engine & Shaders</span>
+                    </button>
+                  </li>
+                </ul>
+
+                <div class="sidebar-status-card">
+                  <div class="sidebar-status-title">Runtime Diagnostics</div>
+                  <div class="sidebar-status-val">
+                    <span style="color: var(--accent-emerald);">●</span>
+                    <span>Java 21 · Temurin 64-bit</span>
+                  </div>
+                </div>
+              </aside>
+
+              <!-- App Main Viewport -->
+              <section class="app-viewport">
+                <!-- VIEW 1: INSTANCES -->
+                <div class="app-view-tab active" id="view-library">
+                  <div class="view-header">
+                    <div class="view-heading">
+                      <h3>Instance Library</h3>
+                      <p>Sandboxed Minecraft setups isolated from system clutter</p>
+                    </div>
+                    <div class="quick-filter-chips">
+                      <span class="filter-chip active">All (4)</span>
+                      <span class="filter-chip">NeoForge</span>
+                      <span class="filter-chip">Fabric</span>
+                      <span class="filter-chip">Vanilla</span>
+                    </div>
+                  </div>
+
+                  <!-- Active Featured Instance -->
+                  <div class="instance-hero-card">
+                    <div class="instance-info-col">
+                      <div class="instance-badge-row">
+                        <span class="tag-loader">NEOFORGE</span>
+                        <span class="tag-version">Minecraft 1.21.4</span>
+                      </div>
+                      <h4 class="instance-title">Atmospheric Horizons</h4>
+                      <div class="instance-submeta">
+                        <span>84 Mods Active</span>
+                        <span>•</span>
+                        <span>Complementary Reimagined Shaders</span>
+                        <span>•</span>
+                        <span>Played 2h ago</span>
+                      </div>
+                    </div>
+                    <div class="instance-action-col">
+                      <button class="btn-mockup-play" type="button">
+                        <svg viewBox="0 0 20 20" width="16" height="16" fill="currentColor"><path d="M6.3 2.841A1.5 1.5 0 0 0 4 4.11v11.78a1.5 1.5 0 0 0 2.3 1.269l9.344-5.89a1.5 1.5 0 0 0 0-2.538L6.3 2.84Z"/></svg>
+                        <span>Launch Instance</span>
+                      </button>
+                      <div class="memory-gauge">
+                        <span>Allocated:</span>
+                        <div class="memory-bar"><div class="memory-bar-fill"></div></div>
+                        <span>6.0 / 16 GB</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Mini Instances Grid -->
+                  <div class="instances-mini-grid">
+                    <div class="mini-instance-card">
+                      <div class="mini-card-head">
+                        <div class="mini-cube-icon cube-fabric">FAB</div>
+                        <span class="tag-version">1.21.1</span>
+                      </div>
+                      <div class="mini-card-title">Speedrun & Hardcore</div>
+                      <div class="mini-card-meta">Sodium + Lithium · 12 mods</div>
+                    </div>
+
+                    <div class="mini-instance-card">
+                      <div class="mini-card-head">
+                        <div class="mini-cube-icon cube-forge">FOR</div>
+                        <span class="tag-version">1.20.1</span>
+                      </div>
+                      <div class="mini-card-title">Create: Mechanical Age</div>
+                      <div class="mini-card-meta">CurseForge Modpack · 142 mods</div>
+                    </div>
+
+                    <div class="mini-instance-card">
+                      <div class="mini-card-head">
+                        <div class="mini-cube-icon cube-vanilla">VAN</div>
+                        <span class="tag-version">1.21.4</span>
+                      </div>
+                      <div class="mini-card-title">Pure Vanilla Survival</div>
+                      <div class="mini-card-meta">Official Release · Zero mods</div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- VIEW 2: DISCOVER HUB -->
+                <div class="app-view-tab" id="view-hub">
+                  <div class="view-header">
+                    <div class="view-heading">
+                      <h3>Unified Discover Hub</h3>
+                      <p>Browse Modrinth & CurseForge from one coherent interface</p>
+                    </div>
+                  </div>
+
+                  <div class="search-mockup-bar">
+                    <svg viewBox="0 0 20 20" width="16" height="16" fill="currentColor"><path fill-rule="evenodd" d="M9 3.5a5.5 5.5 0 1 0 0 11 5.5 5.5 0 0 0 0-11ZM2 9a7 7 0 1 1 12.452 4.391l3.328 3.329a.75.75 0 1 1-1.06 1.06l-3.329-3.328A7 7 0 0 1 2 9Z" clip-rule="evenodd"/></svg>
+                    <span>Search mods, shaders, resource packs, and modpacks...</span>
+                  </div>
+
+                  <div class="hub-cards-grid">
+                    <div class="hub-item-card">
+                      <div class="hub-item-icon">⚡</div>
+                      <div class="hub-item-details">
+                        <div class="hub-item-title">
+                          <span>Sodium Rendering Engine</span>
+                          <span class="provider-badge provider-modrinth">Modrinth</span>
+                        </div>
+                        <p class="hub-item-desc">Next-generation rendering engine drastically improving frame rates and frame pacing.</p>
+                        <div class="hub-item-stats">
+                          <span>★ 4.9</span>
+                          <span>42.8M Downloads</span>
+                          <span>Fabric / NeoForge</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="hub-item-card">
+                      <div class="hub-item-icon">🔮</div>
+                      <div class="hub-item-details">
+                        <div class="hub-item-title">
+                          <span>Iris Shader Pipeline</span>
+                          <span class="provider-badge provider-modrinth">Modrinth</span>
+                        </div>
+                        <p class="hub-item-desc">Modern shaders mod compatible with existing OptiFine shader packs with zero lag spikes.</p>
+                        <div class="hub-item-stats">
+                          <span>★ 4.8</span>
+                          <span>29.1M Downloads</span>
+                          <span>Fabric</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="hub-item-card">
+                      <div class="hub-item-icon">⚙️</div>
+                      <div class="hub-item-details">
+                        <div class="hub-item-title">
+                          <span>Create Mod</span>
+                          <span class="provider-badge provider-curseforge">CurseForge</span>
+                        </div>
+                        <p class="hub-item-desc">Aesthetic technology, rotational kinetics, and mechanical automation systems.</p>
+                        <div class="hub-item-stats">
+                          <span>★ 5.0</span>
+                          <span>61.4M Downloads</span>
+                          <span>Forge / NeoForge</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="hub-item-card">
+                      <div class="hub-item-icon">📖</div>
+                      <div class="hub-item-details">
+                        <div class="hub-item-title">
+                          <span>Just Enough Items (JEI)</span>
+                          <span class="provider-badge provider-curseforge">CurseForge</span>
+                        </div>
+                        <p class="hub-item-desc">Item recipe viewing system designed for stability and high mod compatibility.</p>
+                        <div class="hub-item-stats">
+                          <span>★ 4.9</span>
+                          <span>118M Downloads</span>
+                          <span>All Loaders</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- VIEW 3: ENGINE & SHADERS -->
+                <div class="app-view-tab" id="view-engine">
+                  <div class="view-header">
+                    <div class="view-heading">
+                      <h3>Engine & Shaders Studio</h3>
+                      <p>Fine-tune JVM arguments, memory allocation, and visual pipelines</p>
+                    </div>
+                  </div>
+
+                  <div class="engine-studio-grid">
+                    <div class="engine-control-panel">
+                      <div class="engine-row">
+                        <div class="engine-row-label">
+                          <span>Allocated Memory (Heap)</span>
+                          <span data-memory-val style="color: var(--accent-red-soft);">6.0 GB</span>
+                        </div>
+                        <div class="engine-slider-track" title="Click to adjust simulated RAM">
+                          <div class="engine-slider-fill"></div>
+                        </div>
+                      </div>
+
+                      <div class="engine-row">
+                        <div class="engine-row-label">
+                          <span>Target Java Runtime</span>
+                          <span>Eclipse Temurin 21.0.4 (Bundled)</span>
+                        </div>
+                        <div class="bento-visual-diagram">
+                          <span>Path: /quix/runtimes/java-21-x64</span>
+                          <span class="diagram-pill highlight">Auto-Managed</span>
+                        </div>
+                      </div>
+
+                      <div class="engine-row" style="margin-bottom: 0;">
+                        <div class="engine-row-label">
+                          <span>Garbage Collector Optimization</span>
+                          <span>ZGC Generational (-XX:+UseZGC)</span>
+                        </div>
+                        <div class="bento-visual-diagram">
+                          <span>Flags: -XX:+UnlockExperimentalVMOptions</span>
+                          <span class="diagram-pill">Low Latency</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="shader-card-preview">
+                      <div>
+                        <span class="shader-preview-badge">Active Shaderpack</span>
+                        <div class="shader-preview-meta">
+                          <h4>Complementary Reimagined</h4>
+                          <p>Preset: Ultra Profile with Dynamic Auroras and Colored Lighting Enabled</p>
+                        </div>
+                      </div>
+                      <div class="bento-visual-diagram" style="margin-top: 16px;">
+                        <span>Shadow Res: 2048px</span>
+                        <span>PBR: LabPBR 1.3</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+            </div>
           </div>
-          <div class="preview-note">Illustrative interface concept. Not a functional build or screenshot.</div>
+          <div class="mockup-disclaimer">
+            * Interactive interface concept. Quix is currently in early architecture; no functional binary download is distributed at this stage.
+          </div>
         </div>
       </div>
     </section>
-    <div class="introline"><div class="shell"><span>YOUR GAME</span><span class="sep">✦</span><span>YOUR SETUP</span><span class="sep">✦</span><span>ONE PLACE</span></div></div>
+
+    <!-- 2. WHY QUIX / VALUE PROPOSITION -->
+    <section class="section why-section" id="why">
+      <div class="container">
+        <div class="section-head center">
+          <div class="eyebrow">
+            <span class="eyebrow-line"></span>
+            <span>Why Quix Exists</span>
+            <span class="eyebrow-line"></span>
+          </div>
+          <h2 class="section-title">
+            Say goodbye to <em>setup fatigue.</em>
+          </h2>
+          <p class="section-subtitle">
+            Minecraft Java is one of the greatest creative sandboxes in gaming history. But managing versions, loaders, broken shader directories, and scattered mod files shouldn't feel like a chore.
+          </p>
+        </div>
+
+        <div class="comparison-grid">
+          <!-- Card 1 -->
+          <article class="spotlight-card">
+            <div class="card-content-inner">
+              <div class="card-num">01 / ISOLATION</div>
+              <h3 class="card-title">No More File Collision</h3>
+              <p class="card-description">
+                Traditional setups dump all worlds, mods, and configs into a single shared folder, leading to subtle config corruption and game crashes. Quix encapsulates every single profile into its own strict sandbox.
+              </p>
+              <div class="card-footer-pill">
+                <span>✦</span> True folder isolation per instance
+              </div>
+            </div>
+          </article>
+
+          <!-- Card 2 -->
+          <article class="spotlight-card">
+            <div class="card-content-inner">
+              <div class="card-num">02 / INTEGRATION</div>
+              <h3 class="card-title">Curated Dual Discovery</h3>
+              <p class="card-description">
+                Stop jumping between dozens of browser tabs and suspicious download mirrors. Quix is designed to connect directly with both the Modrinth and CurseForge APIs, allowing one-click mod and shader installation.
+              </p>
+              <div class="card-footer-pill">
+                <span>✦</span> Modrinth & CurseForge combined
+              </div>
+            </div>
+          </article>
+
+          <!-- Card 3 -->
+          <article class="spotlight-card">
+            <div class="card-content-inner">
+              <div class="card-num">03 / RESPECT</div>
+              <h3 class="card-title">Zero Bloatware or Ads</h3>
+              <p class="card-description">
+                You shouldn't have to dodge video pop-ups, telemetry tracking, or cryptocurrency rewards just to launch your game. Quix is built as an independent, distraction-free product for true enthusiasts.
+              </p>
+              <div class="card-footer-pill">
+                <span>✦</span> Pure launcher, zero corporate clutter
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. FEATURE ARCHITECTURE SHOWCASE (BENTO GRID) -->
     <section class="section" id="features">
-      <div class="shell">
-        <div class="section-head"><span class="eyebrow">What we're building</span><h2>A little less managing.<br>A lot more playing.</h2><p>Different worlds need different setups. Quix aims to make it easier to keep them separate, discover what you love, and get back into the game.</p></div>
-        <div class="features">
-          <article class="feature"><div class="ficon" aria-hidden="true">▦</div><div><h3>Everything in its place.</h3><p>Create and manage separate Minecraft instances for vanilla, modded adventures and everything in between.</p></div></article>
-          <article class="feature"><div class="ficon" aria-hidden="true">✦</div><div><h3>Discover more.</h3><p>Explore mods, modpacks, shaders and resource packs with planned Modrinth and CurseForge support.</p></div></article>
-          <article class="feature"><div class="ficon" aria-hidden="true">↗</div><div><h3>Keep control.</h3><p>Manage updates and backups with clear choices instead of surprise changes to your setup.</p></div></article>
-          <article class="feature wide"><div class="lines" aria-hidden="true"><i></i><i></i><i></i></div><div class="ficon" aria-hidden="true">⌘</div><div><h3>Made to feel effortless.</h3><p>Thoughtful details, a responsive interface and powerful tools without the unnecessary complexity.</p></div></article>
-          <article class="feature"><div class="ficon" aria-hidden="true">∞</div><div><h3>Built for what comes next.</h3><p>Minecraft comes first, but the Quix identity leaves room to grow over time.</p></div></article>
+      <div class="container">
+        <div class="section-head">
+          <div class="eyebrow">
+            <span class="eyebrow-line"></span>
+            <span>Planned Capabilities</span>
+          </div>
+          <h2 class="section-title">
+            Precision engineering.<br>
+            <em>Down to the byte.</em>
+          </h2>
+          <p class="section-subtitle">
+            Every feature in Quix is being architected with an obsession for speed, clean UX, and complete user autonomy.
+          </p>
+        </div>
+
+        <div class="bento-grid">
+          <!-- Bento 1: Wide Card -->
+          <div class="bento-card span-2">
+            <div>
+              <div class="bento-icon-box">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+              </div>
+              <h3 class="bento-card-title">Strict Instance Sandboxing</h3>
+              <p class="bento-card-desc">
+                Run Minecraft 1.7.10 with OptiFine alongside 1.21.4 NeoForge with Iris without cross-contamination. Each instance maintains its own dedicated `options.txt`, keybindings, shaderpacks, and save directories.
+              </p>
+            </div>
+            <div class="bento-visual-diagram">
+              <span>Instance Container: /quix/instances/survival-2026/</span>
+              <span class="diagram-pill highlight">Zero Leakage</span>
+            </div>
+          </div>
+
+          <!-- Bento 2 -->
+          <div class="bento-card">
+            <div>
+              <div class="bento-icon-box">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m10 15 5-3-5-3v6Z"/></svg>
+              </div>
+              <h3 class="bento-card-title">Dual Ecosystem Discovery</h3>
+              <p class="bento-card-desc">
+                Access millions of mods and shaderpacks from both Modrinth and CurseForge inside a unified search architecture with automatic dependency resolution.
+              </p>
+            </div>
+            <div class="bento-visual-diagram">
+              <span>APIs: Modrinth v2 + CurseForge</span>
+              <span class="diagram-pill">Unified Feed</span>
+            </div>
+          </div>
+
+          <!-- Bento 3 -->
+          <div class="bento-card">
+            <div>
+              <div class="bento-icon-box">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+              </div>
+              <h3 class="bento-card-title">Automated Java Orchestration</h3>
+              <p class="bento-card-desc">
+                Never wrestle with `JAVA_HOME` variables again. Quix will automatically fetch, sandbox, and bind the exact Java runtime (Java 8, 17, or 21) required by your loader.
+              </p>
+            </div>
+            <div class="bento-visual-diagram">
+              <span>Eclipse Temurin / GraalVM</span>
+              <span class="diagram-pill highlight">Auto-Pinned</span>
+            </div>
+          </div>
+
+          <!-- Bento 4 -->
+          <div class="bento-card">
+            <div>
+              <div class="bento-icon-box">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+              </div>
+              <h3 class="bento-card-title">Visual Shader Management</h3>
+              <p class="bento-card-desc">
+                Preview and switch shader profiles (Iris, Oculus, OptiFine) with live config toggles. Enable or disable labPBR textures and shadow maps without restarting the game.
+              </p>
+            </div>
+            <div class="bento-visual-diagram">
+              <span>Iris & Oculus Pipeline</span>
+              <span class="diagram-pill">Hot Swappable</span>
+            </div>
+          </div>
+
+          <!-- Bento 5: Wide Card -->
+          <div class="bento-card span-2">
+            <div>
+              <div class="bento-icon-box">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+              </div>
+              <h3 class="bento-card-title">Snapshot Vault & Rollback Protection</h3>
+              <p class="bento-card-desc">
+                Updating 50 mods at once shouldn't break your 200-hour world. Quix creates atomic pre-update snapshots, giving you a painless one-click rollback if an updated mod introduces fatal incompatibilities.
+              </p>
+            </div>
+            <div class="bento-visual-diagram">
+              <span>Instant Rollback: `quix snapshot restore`</span>
+              <span class="diagram-pill highlight">Safe Updates</span>
+            </div>
+          </div>
         </div>
       </div>
     </section>
-    <div class="roadmap-wrap">
-      <section class="section" id="roadmap">
-        <div class="shell">
-          <div class="section-head"><span class="eyebrow">Where we are</span><h2>Good things take shape.</h2><p>Quix is an early-stage independent project. The direction is taking shape, and there's still plenty of work ahead.</p></div>
-          <div class="steps">
-            <div class="step"><div class="num">01 / CURRENT</div><h3>Design & planning</h3><p>Defining the interface, experience and technical foundation.</p></div>
-            <div class="step"><div class="num">02 / NEXT</div><h3>Core development</h3><p>Building and testing the essentials of a reliable Minecraft launcher.</p></div>
-            <div class="step"><div class="num">03 / LATER</div><h3>Public release</h3><p>Sharing a build when it's ready. No release date announced yet.</p></div>
+
+    <!-- 4. DEVELOPMENT ROADMAP & TRANSPARENT STATUS -->
+    <section class="section roadmap-section" id="roadmap">
+      <div class="container">
+        <div class="section-head center">
+          <div class="eyebrow">
+            <span class="eyebrow-line"></span>
+            <span>Transparent Development</span>
+            <span class="eyebrow-line"></span>
+          </div>
+          <h2 class="section-title">
+            Built in the open.<br>
+            <em>One milestone at a time.</em>
+          </h2>
+          <p class="section-subtitle">
+            We believe in honest software craftsmanship. Quix is currently in early technical planning; we are laying down the core architecture before releasing public builds.
+          </p>
+        </div>
+
+        <div class="roadmap-timeline">
+          <!-- Phase 1 -->
+          <div class="timeline-card active-phase">
+            <div>
+              <div class="phase-number">
+                <span>PHASE 01</span>
+                <span class="phase-status-tag status-active">In Progress</span>
+              </div>
+              <h3 class="phase-title">Architecture & Specs</h3>
+              <p class="phase-desc">Establishing instance isolation protocols, filesystem sandboxes, and brand identity.</p>
+            </div>
+            <ul class="phase-bullets">
+              <li>Filesystem layout specification</li>
+              <li>Instance configuration schemas</li>
+              <li>Design system & landing page</li>
+            </ul>
+          </div>
+
+          <!-- Phase 2 -->
+          <div class="timeline-card">
+            <div>
+              <div class="phase-number">
+                <span>PHASE 02</span>
+                <span class="phase-status-tag status-next">Upcoming</span>
+              </div>
+              <h3 class="phase-title">Provider & Auth Engine</h3>
+              <p class="phase-desc">Secure Microsoft authentication integration and Modrinth/CurseForge public API client.</p>
+            </div>
+            <ul class="phase-bullets">
+              <li>Mojang / Microsoft OAuth client</li>
+              <li>Modrinth & CurseForge API wrapper</li>
+              <li>Dependency graph resolver</li>
+            </ul>
+          </div>
+
+          <!-- Phase 3 -->
+          <div class="timeline-card">
+            <div>
+              <div class="phase-number">
+                <span>PHASE 03</span>
+                <span class="phase-status-tag status-next">Planned</span>
+              </div>
+              <h3 class="phase-title">Desktop App Engine</h3>
+              <p class="phase-desc">Native Windows desktop application with shader control and automated Java downloaders.</p>
+            </div>
+            <ul class="phase-bullets">
+              <li>Lightweight Windows UI shell</li>
+              <li>Automated Java runtime manager</li>
+              <li>Process watcher & crash telemetry</li>
+            </ul>
+          </div>
+
+          <!-- Phase 4 -->
+          <div class="timeline-card">
+            <div>
+              <div class="phase-number">
+                <span>PHASE 04</span>
+                <span class="phase-status-tag status-next">Future</span>
+              </div>
+              <h3 class="phase-title">Community Preview</h3>
+              <p class="phase-desc">First public builds for community feedback, stability testing, and ecosystem validation.</p>
+            </div>
+            <ul class="phase-bullets">
+              <li>Closed community alpha testing</li>
+              <li>Performance benchmarking</li>
+              <li>Public installer release</li>
+            </ul>
           </div>
         </div>
-      </section>
-    </div>
-    <section class="closing"><div class="shell"><div class="closing-card"><span class="eyebrow">Just getting started</span><h2>We're building something<br>worth waiting for.</h2><p>There's no download yet. Follow the project on GitHub to see how Quix develops.</p><a class="btn btn-primary" href="https://github.com/QuixLauncher/quix-launcher" target="_blank" rel="noopener noreferrer">Follow the project on GitHub ↗</a></div></div></section>
+      </div>
+    </section>
+
+    <!-- 5. FINAL HIGH-IMPACT CALL TO ACTION -->
+    <section class="section cta-section">
+      <div class="container">
+        <div class="cta-banner">
+          <div class="eyebrow" style="justify-content: center;">
+            <span class="eyebrow-line"></span>
+            <span>Join Early Development</span>
+            <span class="eyebrow-line"></span>
+          </div>
+
+          <h2 class="cta-title">
+            Be part of the journey from day one.
+          </h2>
+
+          <p class="cta-copy">
+            We're building Quix because Minecraft deserves a launcher that feels as modern, fast, and refined as the hardware you play it on. Star our repository on GitHub to follow our commits, design discussions, and milestone releases.
+          </p>
+
+          <div class="cta-actions">
+            <a href="https://github.com/QuixLauncher/quix-launcher" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+              <svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor" aria-hidden="true">
+                <path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"/>
+              </svg>
+              <span>Star Quix on GitHub</span>
+            </a>
+
+            <a href="#roadmap" class="btn btn-secondary">
+              <span>View the Roadmap</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
   </main>
-  <footer><div class="shell"><div><a class="brand" href="#top"><img src="./favicon.svg" alt=""><strong>quix</strong></a><p class="footnote">Quix is an independent project and is not affiliated with, endorsed by or officially associated with Mojang Studios, Microsoft, CurseForge or Modrinth. Minecraft is a trademark of its respective owner. Features and third-party integrations described on this website are planned and subject to change and the relevant permissions.</p></div><div class="footer-links"><a href="#top">Back to top ↑</a><a href="https://github.com/QuixLauncher/quix-launcher" target="_blank" rel="noopener noreferrer">GitHub ↗</a></div></div></footer>
-  <script>
-    (function(){
-      var toggle=document.querySelector(".mobile-menu");var nav=document.getElementById("nav");
-      toggle.addEventListener("click",function(){var open=nav.classList.toggle("open");toggle.setAttribute("aria-expanded",open?"true":"false")});
-      nav.querySelectorAll("a").forEach(function(a){a.addEventListener("click",function(){nav.classList.remove("open");toggle.setAttribute("aria-expanded","false")})});
-    })();
-  </script>
+
+  <!-- 6. SITE FOOTER -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand-info">
+          <a href="#top" class="brand-lockup">
+            <div class="brand-icon">
+              <img src="./favicon.svg" alt="Quix brand icon" width="28" height="28">
+            </div>
+            <span class="brand-name">quix</span>
+          </a>
+          <p>
+            An independent, high-performance Minecraft Java Edition launcher for Windows. Designed for players who value speed, clean instance management, and zero bloat.
+          </p>
+        </div>
+
+        <div class="footer-links-group">
+          <div class="footer-col">
+            <h5>Navigation</h5>
+            <ul>
+              <li><a href="#why">Why Quix</a></li>
+              <li><a href="#preview">Interface Concept</a></li>
+              <li><a href="#features">Architecture</a></li>
+              <li><a href="#roadmap">Roadmap</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h5>Community & Code</h5>
+            <ul>
+              <li><a href="https://github.com/QuixLauncher/quix-launcher" target="_blank" rel="noopener noreferrer">GitHub Repository ↗</a></li>
+              <li><a href="https://github.com/QuixLauncher/quix-launcher/issues" target="_blank" rel="noopener noreferrer">Issues & Feedback ↗</a></li>
+              <li><a href="https://github.com/QuixLauncher" target="_blank" rel="noopener noreferrer">Quix Organization ↗</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p class="disclaimer-text">
+          Quix is an independent open-source project and is not affiliated with, endorsed by, or associated with Mojang Studios, Microsoft Corporation, CurseForge, or Modrinth. Minecraft is a registered trademark of Mojang AB / Microsoft Corporation. All third-party logos and trademarks belong to their respective copyright holders.
+        </p>
+        <div class="footer-credits">
+          © 2026 Quix Launcher Team. Designed with precision.
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Interactive Logic -->
+  <script src="./script.js"></script>
 </body>
 </html>
