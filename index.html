@@ -72,34 +72,59 @@
     }
   </script>
 
-  <!-- Custom High-Performance CSS: Smooth Scrolling, Branded Scrollbar, Optimized Cards -->
+  <!-- Custom High-Atmosphere Gaming CSS: Cosmic Nebulae, Stardust, Smooth Scroll Reveals -->
   <style>
     :root {
       color-scheme: dark;
     }
     html {
-      background-color: #070A0F;
+      background-color: #07090E;
     }
     body {
-      background-color: #070A0F;
+      background-color: #07090E;
       color: #F1F5F9;
       font-family: 'Plus Jakarta Sans', sans-serif;
       overflow-x: hidden;
       position: relative;
     }
 
-    /* GPU-Composited Fixed Background Layer: Zero repaints on scroll */
+    /* Cosmic Ambient Nebulae (Multi-layer GPU accelerated) */
     body::before {
       content: "";
       position: fixed;
       inset: 0;
       background: 
-        radial-gradient(1200px 700px at 50% -100px, rgba(229, 72, 77, 0.12), transparent 70%),
-        radial-gradient(900px 600px at 100% 30%, rgba(30, 41, 59, 0.2), transparent 60%),
-        #070A0F;
+        /* Top Crimson Horizon Aurora */
+        radial-gradient(1100px 600px at 50% -50px, rgba(229, 72, 77, 0.22), rgba(160, 28, 35, 0.1) 45%, transparent 75%),
+        /* Left Indigo Cosmic Nebula */
+        radial-gradient(900px 600px at 5% 25%, rgba(99, 102, 241, 0.14), transparent 60%),
+        /* Right Electric Violet/Cyan Flare */
+        radial-gradient(850px 550px at 95% 55%, rgba(168, 85, 247, 0.1), rgba(56, 189, 248, 0.08) 50%, transparent 65%),
+        /* Lower Crimson Core */
+        radial-gradient(1000px 650px at 50% 88%, rgba(229, 72, 77, 0.16), rgba(120, 15, 25, 0.08) 50%, transparent 75%),
+        #07090E;
+      pointer-events: none;
+      z-index: -2;
+      transform: translateZ(0);
+    }
+
+    /* Ambient Stardust Night Sky Layer (Organic Deep Cosmos, Zero Grids) */
+    .stardust-layer {
+      position: fixed;
+      inset: 0;
+      background-image: 
+        radial-gradient(1px 1px at 30px 40px, rgba(255, 255, 255, 0.5), transparent),
+        radial-gradient(1.5px 1.5px at 140px 90px, rgba(255, 106, 112, 0.55), transparent),
+        radial-gradient(1px 1px at 260px 180px, rgba(255, 255, 255, 0.4), transparent),
+        radial-gradient(1.5px 1.5px at 390px 80px, rgba(147, 197, 253, 0.45), transparent),
+        radial-gradient(1px 1px at 520px 250px, rgba(255, 255, 255, 0.45), transparent),
+        radial-gradient(1.5px 1.5px at 680px 130px, rgba(255, 106, 112, 0.5), transparent),
+        radial-gradient(1px 1px at 850px 310px, rgba(255, 255, 255, 0.4), transparent),
+        radial-gradient(1.5px 1.5px at 980px 120px, rgba(167, 139, 250, 0.45), transparent);
+      background-size: 1100px 420px;
       pointer-events: none;
       z-index: -1;
-      transform: translateZ(0);
+      opacity: 0.8;
     }
 
     /* Custom Branded Scrollbar (Matches Quix Obsidian & Crimson) */
@@ -107,29 +132,34 @@
       width: 10px;
     }
     ::-webkit-scrollbar-track {
-      background: #070A0F;
+      background: #07090E;
     }
     ::-webkit-scrollbar-thumb {
       background: #1C2436;
       border-radius: 9999px;
-      border: 2px solid #070A0F;
+      border: 2px solid #07090E;
     }
     ::-webkit-scrollbar-thumb:hover {
       background: #E5484D;
-      box-shadow: 0 0 10px rgba(229, 72, 77, 0.6);
+      box-shadow: 0 0 12px rgba(229, 72, 77, 0.7);
     }
     ::-webkit-scrollbar-thumb:active {
       background: #FF6A70;
     }
     html {
       scrollbar-width: thin;
-      scrollbar-color: #1C2436 #070A0F;
+      scrollbar-color: #1C2436 #07090E;
     }
 
-    /* Fast, Crisp Rendering with Zero Scroll Lag */
+    /* Cinematic Smooth Scroll Reveal (Silky smooth 60-120fps) */
     .reveal {
+      opacity: 0;
+      transform: translateY(26px);
+      transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reveal.active {
       opacity: 1;
-      transform: none;
+      transform: translateY(0);
     }
 
     /* Shimmer Button Effect */
@@ -158,21 +188,24 @@
       transform: translateY(-2px);
     }
 
-    /* High-Performance Cards with Crisp Specular Highlights (Zero lag) */
+    /* High-Performance Cards with Crisp Specular Highlights & Crimson Hover Aura */
     .glass-card {
-      background: #111726;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.07);
-      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease, box-shadow 0.25s ease;
+      background: linear-gradient(165deg, rgba(22, 30, 48, 0.85) 0%, rgba(13, 18, 29, 0.95) 100%);
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     }
     .glass-card:hover {
-      border-color: rgba(229, 72, 77, 0.45);
-      box-shadow: 0 12px 35px -8px rgba(0, 0, 0, 0.7), 0 0 25px rgba(229, 72, 77, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.15);
-      transform: translateY(-4px);
+      border-color: rgba(229, 72, 77, 0.6);
+      box-shadow: 0 15px 40px -10px rgba(0, 0, 0, 0.7), 0 0 30px rgba(229, 72, 77, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+      transform: translateY(-5px);
     }
   </style>
 </head>
 <body class="relative selection:bg-red-500/40 selection:text-white">
+
+  <!-- Stardust Cosmic Atmosphere Layer -->
+  <div class="stardust-layer" aria-hidden="true"></div>
 
   <!-- STICKY NAVBAR (DaisyUI + Tailwind) -->
   <header class="sticky top-0 z-50 w-full backdrop-blur-xl bg-quix-bg/85 border-b border-white/[0.08] transition-all duration-300" id="navbar">
@@ -621,6 +654,13 @@
       </div>
     </section>
 
+    <!-- Glowing Laser Line Divider -->
+    <div class="max-w-5xl mx-auto px-4 my-2 flex items-center justify-center gap-4 reveal">
+      <div class="h-px bg-gradient-to-r from-transparent via-red-500/40 to-transparent flex-grow"></div>
+      <div class="w-2 h-2 rotate-45 bg-red-500 shadow-[0_0_12px_rgba(229,72,77,0.9)]"></div>
+      <div class="h-px bg-gradient-to-r from-transparent via-red-500/40 to-transparent flex-grow"></div>
+    </div>
+
     <!-- SECTION 2: WHY QUIX / VALUE PROPOSITION -->
     <section class="py-24 border-t border-b border-white/[0.08] bg-quix-canvas/50 relative" id="features">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -672,6 +712,13 @@
 
       </div>
     </section>
+
+    <!-- Glowing Laser Line Divider -->
+    <div class="max-w-5xl mx-auto px-4 my-2 flex items-center justify-center gap-4 reveal">
+      <div class="h-px bg-gradient-to-r from-transparent via-red-500/40 to-transparent flex-grow"></div>
+      <div class="w-2 h-2 rotate-45 bg-red-500 shadow-[0_0_12px_rgba(229,72,77,0.9)]"></div>
+      <div class="h-px bg-gradient-to-r from-transparent via-red-500/40 to-transparent flex-grow"></div>
+    </div>
 
     <!-- SECTION 3: BENTO FEATURE SHOWCASE -->
     <section class="py-24 relative" id="architecture">
@@ -780,6 +827,13 @@
 
       </div>
     </section>
+
+    <!-- Glowing Laser Line Divider -->
+    <div class="max-w-5xl mx-auto px-4 my-2 flex items-center justify-center gap-4 reveal">
+      <div class="h-px bg-gradient-to-r from-transparent via-red-500/40 to-transparent flex-grow"></div>
+      <div class="w-2 h-2 rotate-45 bg-red-500 shadow-[0_0_12px_rgba(229,72,77,0.9)]"></div>
+      <div class="h-px bg-gradient-to-r from-transparent via-red-500/40 to-transparent flex-grow"></div>
+    </div>
 
     <!-- SECTION 4: DEVELOPMENT ROADMAP (DAISYUI TIMELINE) -->
     <section class="py-24 border-t border-white/[0.08] bg-quix-canvas/40 relative" id="roadmap">
@@ -1036,7 +1090,30 @@
         lucide.createIcons();
       }
 
-      // 2. Desktop Mockup Tab Switching
+      // 2. Cinematic Smooth Scroll Reveal (Auto-unobserve for 120fps performance)
+      const reveals = document.querySelectorAll('.reveal');
+      const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('active');
+            obs.unobserve(entry.target);
+          }
+        });
+      }, {
+        rootMargin: '0px 0px -40px 0px',
+        threshold: 0.1
+      });
+
+      reveals.forEach(el => {
+        const rect = el.getBoundingClientRect();
+        if (rect.top < window.innerHeight) {
+          el.classList.add('active');
+        } else {
+          observer.observe(el);
+        }
+      });
+
+      // 3. Desktop Mockup Tab Switching
       const tabButtons = document.querySelectorAll('#mockup-nav-tabs .tab-btn');
       const tabPanes = document.querySelectorAll('.tab-pane');
 
