@@ -82,20 +82,29 @@
     }
     body {
       background-color: #070A0F;
-      background-image: 
-        radial-gradient(1200px 700px at 50% -100px, rgba(229, 72, 77, 0.14), transparent 70%),
-        radial-gradient(900px 600px at 100% 30%, rgba(30, 41, 59, 0.25), transparent 60%),
-        radial-gradient(700px 500px at 0% 70%, rgba(229, 72, 77, 0.04), transparent 60%);
-      background-attachment: fixed;
       color: #F1F5F9;
       font-family: 'Plus Jakarta Sans', sans-serif;
       overflow-x: hidden;
+      position: relative;
+    }
+
+    /* GPU-Composited Fixed Background Layer: Zero repaints on scroll */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background: 
+        radial-gradient(1200px 700px at 50% -100px, rgba(229, 72, 77, 0.12), transparent 70%),
+        radial-gradient(900px 600px at 100% 30%, rgba(30, 41, 59, 0.2), transparent 60%),
+        #070A0F;
+      pointer-events: none;
+      z-index: -1;
+      transform: translateZ(0);
     }
 
     /* Custom Branded Scrollbar (Matches Quix Obsidian & Crimson) */
     ::-webkit-scrollbar {
       width: 10px;
-      height: 10px;
     }
     ::-webkit-scrollbar-track {
       background: #070A0F;
@@ -104,29 +113,23 @@
       background: #1C2436;
       border-radius: 9999px;
       border: 2px solid #070A0F;
-      transition: background 0.2s ease, box-shadow 0.2s ease;
     }
     ::-webkit-scrollbar-thumb:hover {
       background: #E5484D;
-      box-shadow: 0 0 10px rgba(229, 72, 77, 0.5);
+      box-shadow: 0 0 10px rgba(229, 72, 77, 0.6);
     }
     ::-webkit-scrollbar-thumb:active {
       background: #FF6A70;
     }
-    * {
+    html {
       scrollbar-width: thin;
       scrollbar-color: #1C2436 #070A0F;
     }
 
-    /* Fast, Smooth Element Reveals on Scroll (GPU-friendly) */
+    /* Fast, Crisp Rendering with Zero Scroll Lag */
     .reveal {
-      opacity: 0;
-      transform: translateY(24px);
-      transition: opacity 0.5s ease-out, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .reveal.active {
       opacity: 1;
-      transform: translateY(0);
+      transform: none;
     }
 
     /* Shimmer Button Effect */
@@ -283,11 +286,11 @@
         <!-- HIGH-FIDELITY INTERACTIVE DESKTOP MOCKUP -->
         <div class="mt-16 sm:mt-20 relative max-w-5xl mx-auto reveal" id="hero-preview">
           
-          <!-- Outer Glow Aura -->
-          <div class="absolute -inset-1.5 bg-gradient-to-r from-red-600/30 via-red-500/10 to-red-600/30 rounded-3xl blur-2xl opacity-60 group-hover:opacity-100 transition duration-1000 -z-10"></div>
+          <!-- Outer Glow Aura (Lightweight gradient without filter: blur) -->
+          <div class="absolute -inset-3 bg-gradient-to-b from-red-600/20 via-red-950/10 to-transparent rounded-3xl opacity-50 -z-10 pointer-events-none"></div>
 
           <!-- DaisyUI Mockup Window -->
-          <div class="mockup-window border border-white/15 bg-quix-canvas/95 shadow-2xl backdrop-blur-3xl rounded-2xl overflow-hidden text-left">
+          <div class="mockup-window border border-white/15 bg-[#0D121F] shadow-2xl rounded-2xl overflow-hidden text-left">
             
             <!-- Window Navigation & Breadcrumbs -->
             <div class="px-5 py-3 border-b border-white/[0.08] bg-quix-bg/90 flex flex-wrap items-center justify-between gap-3 text-xs">
@@ -1033,19 +1036,7 @@
         lucide.createIcons();
       }
 
-      // 2. Smooth Scroll Reveal (IntersectionObserver)
-      const reveals = document.querySelectorAll('.reveal');
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('active');
-          }
-        });
-      }, { threshold: 0.1 });
-
-      reveals.forEach(el => observer.observe(el));
-
-      // 3. Desktop Mockup Tab Switching
+      // 2. Desktop Mockup Tab Switching
       const tabButtons = document.querySelectorAll('#mockup-nav-tabs .tab-btn');
       const tabPanes = document.querySelectorAll('.tab-pane');
 
