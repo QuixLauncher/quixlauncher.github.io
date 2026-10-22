@@ -1,530 +1,412 @@
 <!doctype html>
-<html lang="en" data-theme="dark">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#0B0F17">
+  <meta name="theme-color" content="#080B10">
   
-  <title>Quix — Next-Generation Minecraft Java Launcher</title>
-  <meta name="title" content="Quix — Next-Generation Minecraft Java Launcher">
-  <meta name="description" content="A free, modern, ultra-fast Minecraft Java Edition launcher for Windows. Isolated instances, planned Modrinth & CurseForge integration, and zero bloat.">
+  <!-- Primary Meta Tags -->
+  <title>Quix — Your Minecraft. Your way.</title>
+  <meta name="title" content="Quix — Your Minecraft. Your way.">
+  <meta name="description" content="A fresh, elegant home for your Minecraft Java setups. Quix is a free Minecraft launcher currently in planning and early development for Windows.">
 
-  <!-- Open Graph -->
+  <!-- Open Graph / Social Sharing (High-impact 1200x630 banner) -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://quixlauncher.github.io/">
-  <meta property="og:title" content="Quix — Next-Generation Minecraft Java Launcher">
-  <meta property="og:description" content="Pure speed. Zero clutter. Dedicated instance sandboxing, unified mod discovery, and modern Windows design.">
-  <meta property="og:image" content="./favicon.svg">
+  <meta property="og:title" content="Quix — Your Minecraft. Your way.">
+  <meta property="og:description" content="A fresh, elegant home for your Minecraft Java setups. Independent, free, and designed to keep everything in its place.">
+  <meta property="og:image" content="./og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
 
-  <link rel="icon" type="image/svg+xml" href="./favicon.svg">
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:title" content="Quix — Your Minecraft. Your way.">
+  <meta property="twitter:description" content="A fresh, elegant home for your Minecraft Java setups. In planning and early development for Windows.">
+  <meta property="twitter:image" content="./og-image.png">
 
-  <!-- Google Fonts: Space Grotesk, Plus Jakarta Sans, JetBrains Mono -->
+  <!-- Optimized Official Favicons (Preserving original design 100%) -->
+  <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
+
+  <!-- Google Typography: Plus Jakarta Sans, Sora & JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Sora:wght@600;700;800&display=swap" rel="stylesheet">
 
-  <!-- Tailwind CSS & DaisyUI via CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.14/dist/full.min.css" rel="stylesheet" type="text/css" />
+  <!-- Production Stylesheet -->
+  <link rel="stylesheet" href="./style.css">
 
-  <!-- Lucide Icons -->
-  <script src="https://unpkg.com/lucide@latest"></script>
-
-  <!-- Tailwind Configuration -->
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            quix: {
-              bg: '#080C14',
-              canvas: '#0D121F',
-              surface: '#131A29',
-              elevated: '#1A2336',
-              border: '#243047',
-              red: '#E5484D',
-              redSoft: '#FF6A70',
-              redDeep: '#9E1C22',
-            }
-          },
-          fontFamily: {
-            sans: ['Plus Jakarta Sans', 'sans-serif'],
-            display: ['Space Grotesk', 'sans-serif'],
-            mono: ['JetBrains Mono', 'monospace'],
-          },
-          animation: {
-            'glow-pulse': 'glowPulse 6s ease-in-out infinite',
-            'border-shimmer': 'borderShimmer 4s linear infinite',
-            'float-slow': 'floatSlow 8s ease-in-out infinite',
-          },
-          keyframes: {
-            glowPulse: {
-              '0%, 100%': { opacity: '0.3', transform: 'scale(1)' },
-              '50%': { opacity: '0.6', transform: 'scale(1.08)' },
-            },
-            floatSlow: {
-              '0%, 100%': { transform: 'translateY(0px)' },
-              '50%': { transform: 'translateY(-12px)' },
-            }
-          }
-        }
-      }
-    }
-  </script>
-
-  <!-- Custom High-Atmosphere Gaming CSS: Cosmic Nebulae, Stardust, Smooth Scroll Reveals -->
-  <style>
-    :root {
-      color-scheme: dark;
-    }
-    html {
-      background-color: #07090E;
-    }
-    body {
-      background-color: #07090E;
-      color: #F1F5F9;
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      overflow-x: hidden;
-      position: relative;
-    }
-
-    /* Cosmic Ambient Nebulae (Multi-layer GPU accelerated) */
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      background: 
-        /* Top Crimson Horizon Aurora */
-        radial-gradient(1100px 600px at 50% -50px, rgba(229, 72, 77, 0.22), rgba(160, 28, 35, 0.1) 45%, transparent 75%),
-        /* Left Indigo Cosmic Nebula */
-        radial-gradient(900px 600px at 5% 25%, rgba(99, 102, 241, 0.14), transparent 60%),
-        /* Right Electric Violet/Cyan Flare */
-        radial-gradient(850px 550px at 95% 55%, rgba(168, 85, 247, 0.1), rgba(56, 189, 248, 0.08) 50%, transparent 65%),
-        /* Lower Crimson Core */
-        radial-gradient(1000px 650px at 50% 88%, rgba(229, 72, 77, 0.16), rgba(120, 15, 25, 0.08) 50%, transparent 75%),
-        #07090E;
-      pointer-events: none;
-      z-index: -2;
-      transform: translateZ(0);
-    }
-
-    /* Ambient Stardust Night Sky Layer (Organic Deep Cosmos, Zero Grids) */
-    .stardust-layer {
-      position: fixed;
-      inset: 0;
-      background-image: 
-        radial-gradient(1px 1px at 30px 40px, rgba(255, 255, 255, 0.5), transparent),
-        radial-gradient(1.5px 1.5px at 140px 90px, rgba(255, 106, 112, 0.55), transparent),
-        radial-gradient(1px 1px at 260px 180px, rgba(255, 255, 255, 0.4), transparent),
-        radial-gradient(1.5px 1.5px at 390px 80px, rgba(147, 197, 253, 0.45), transparent),
-        radial-gradient(1px 1px at 520px 250px, rgba(255, 255, 255, 0.45), transparent),
-        radial-gradient(1.5px 1.5px at 680px 130px, rgba(255, 106, 112, 0.5), transparent),
-        radial-gradient(1px 1px at 850px 310px, rgba(255, 255, 255, 0.4), transparent),
-        radial-gradient(1.5px 1.5px at 980px 120px, rgba(167, 139, 250, 0.45), transparent);
-      background-size: 1100px 420px;
-      pointer-events: none;
-      z-index: -1;
-      opacity: 0.8;
-    }
-
-    /* Custom Branded Scrollbar (Matches Quix Obsidian & Crimson) */
-    ::-webkit-scrollbar {
-      width: 10px;
-    }
-    ::-webkit-scrollbar-track {
-      background: #07090E;
-    }
-    ::-webkit-scrollbar-thumb {
-      background: #1C2436;
-      border-radius: 9999px;
-      border: 2px solid #07090E;
-    }
-    ::-webkit-scrollbar-thumb:hover {
-      background: #E5484D;
-      box-shadow: 0 0 12px rgba(229, 72, 77, 0.7);
-    }
-    ::-webkit-scrollbar-thumb:active {
-      background: #FF6A70;
-    }
-    html {
-      scrollbar-width: thin;
-      scrollbar-color: #1C2436 #07090E;
-    }
-
-    /* Cinematic Smooth Scroll Reveal (Silky smooth 60-120fps) */
-    .reveal {
-      opacity: 0;
-      transform: translateY(26px);
-      transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .reveal.active {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* Shimmer Button Effect */
-    .btn-shimmer {
-      position: relative;
-      overflow: hidden;
-      background: linear-gradient(135deg, #E5484D 0%, #A31E23 100%);
-      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .btn-shimmer::after {
-      content: "";
-      position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: linear-gradient(60deg, transparent 30%, rgba(255, 255, 255, 0.25) 50%, transparent 70%);
-      transform: rotate(30deg) translateX(-100%);
-      transition: transform 0.7s ease;
-    }
-    .btn-shimmer:hover::after {
-      transform: rotate(30deg) translateX(100%);
-    }
-    .btn-shimmer:hover {
-      box-shadow: 0 8px 25px -4px rgba(229, 72, 77, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.25);
-      transform: translateY(-2px);
-    }
-
-    /* High-Performance Cards with Crisp Specular Highlights & Crimson Hover Aura */
-    .glass-card {
-      background: linear-gradient(165deg, rgba(22, 30, 48, 0.85) 0%, rgba(13, 18, 29, 0.95) 100%);
-      border: 1px solid rgba(255, 255, 255, 0.09);
-      box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
-      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .glass-card:hover {
-      border-color: rgba(229, 72, 77, 0.6);
-      box-shadow: 0 15px 40px -10px rgba(0, 0, 0, 0.7), 0 0 30px rgba(229, 72, 77, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.2);
-      transform: translateY(-5px);
-    }
-  </style>
+  <!-- Internationalization Translations -->
+  <script src="./translations.js"></script>
 </head>
-<body class="relative selection:bg-red-500/40 selection:text-white">
+<body>
 
-  <!-- Stardust Cosmic Atmosphere Layer -->
-  <div class="stardust-layer" aria-hidden="true"></div>
-
-  <!-- STICKY NAVBAR (DaisyUI + Tailwind) -->
-  <header class="sticky top-0 z-50 w-full backdrop-blur-xl bg-quix-bg/85 border-b border-white/[0.08] transition-all duration-300" id="navbar">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="navbar min-h-[72px] px-0 justify-between">
-        
-        <!-- Logo -->
-        <div class="navbar-start w-auto">
-          <a href="#top" class="flex items-center gap-3 group text-white">
-            <div class="w-9 h-9 rounded-xl flex items-center justify-center p-1 bg-gradient-to-br from-white/10 to-white/0 border border-white/10 group-hover:border-red-500/50 group-hover:shadow-[0_0_15px_rgba(229,72,77,0.4)] transition-all duration-300">
-              <img src="./favicon.svg" alt="Quix Logo" width="30" height="30" class="w-full h-full object-contain">
-            </div>
-            <span class="font-display font-bold text-2xl tracking-tight text-white group-hover:text-red-400 transition-colors">quix</span>
-          </a>
-        </div>
-
-        <!-- Desktop Navigation Links -->
-        <nav class="navbar-center hidden md:flex" aria-label="Main Navigation">
-          <ul class="flex items-center gap-8 text-sm font-medium text-slate-300">
-            <li><a href="#hero-preview" class="hover:text-white transition-colors relative py-1 hover:after:w-full after:w-0 after:h-0.5 after:bg-red-500 after:absolute after:bottom-0 after:left-0 after:transition-all">Desktop View</a></li>
-            <li><a href="#features" class="hover:text-white transition-colors relative py-1 hover:after:w-full after:w-0 after:h-0.5 after:bg-red-500 after:absolute after:bottom-0 after:left-0 after:transition-all">Why Quix</a></li>
-            <li><a href="#architecture" class="hover:text-white transition-colors relative py-1 hover:after:w-full after:w-0 after:h-0.5 after:bg-red-500 after:absolute after:bottom-0 after:left-0 after:transition-all">Capabilities</a></li>
-            <li><a href="#roadmap" class="hover:text-white transition-colors relative py-1 hover:after:w-full after:w-0 after:h-0.5 after:bg-red-500 after:absolute after:bottom-0 after:left-0 after:transition-all">Ledger</a></li>
-            <li><a href="#faq" class="hover:text-white transition-colors relative py-1 hover:after:w-full after:w-0 after:h-0.5 after:bg-red-500 after:absolute after:bottom-0 after:left-0 after:transition-all">FAQ</a></li>
-          </ul>
-        </nav>
-
-        <!-- Right Side: Status Badge & GitHub CTA -->
-        <div class="navbar-end w-auto flex items-center gap-3">
-          <!-- Pulse Status Badge -->
-          <div class="hidden sm:inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/[0.04] border border-white/10 text-xs font-mono text-slate-300 backdrop-blur-md">
-            <span class="relative flex h-2 w-2">
-              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
-              <span class="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span>
-            </span>
-            <span>Windows First · In Planning</span>
-          </div>
-
-          <!-- GitHub Star Button -->
-          <a href="https://github.com/QuixLauncher/quix-launcher" target="_blank" rel="noopener noreferrer" class="btn btn-sm h-10 px-4 rounded-xl bg-quix-surface border border-white/10 text-white hover:bg-quix-elevated hover:border-red-500/40 hover:shadow-[0_0_20px_rgba(229,72,77,0.25)] transition-all gap-2 font-medium">
-            <i data-lucide="star" class="w-4 h-4 text-amber-400 fill-amber-400"></i>
-            <span class="text-xs font-semibold">Star on GitHub</span>
-          </a>
-
-          <!-- Mobile Dropdown Menu -->
-          <div class="dropdown dropdown-end md:hidden">
-            <button tabindex="0" class="btn btn-ghost btn-square btn-sm text-slate-300 hover:text-white" aria-label="Toggle menu">
-              <i data-lucide="menu" class="w-5 h-5"></i>
-            </button>
-            <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-3 shadow-2xl bg-quix-surface border border-white/10 rounded-2xl w-52 gap-2">
-              <li><a href="#hero-preview">Desktop View</a></li>
-              <li><a href="#features">Why Quix</a></li>
-              <li><a href="#architecture">Capabilities</a></li>
-              <li><a href="#roadmap">Ledger</a></li>
-              <li><a href="#faq">FAQ</a></li>
-              <li class="border-t border-white/10 pt-2"><a href="https://github.com/QuixLauncher/quix-launcher" target="_blank">View GitHub ↗</a></li>
-            </ul>
-          </div>
-
-        </div>
-
+  <!-- Cinematic Language Transition Screen -->
+  <div class="lang-transition-veil" id="lang-veil" aria-hidden="true">
+    <div class="lang-transition-backdrop"></div>
+    <div class="lang-transition-content">
+      <div class="lang-transition-logo-wrap">
+        <div class="lang-logo-glow"></div>
+        <img src="./Quix Icon.png" alt="Quix" class="lang-transition-logo" width="68" height="68">
       </div>
+      <div class="lang-transition-hud">
+        <div class="lang-hud-tag" data-i18n="veil_tag">QUIX // SYSTEM LOCALE</div>
+        <div class="lang-hud-status" id="lang-transition-status">SWITCHING TO PORTUGUÊS...</div>
+        <div class="lang-laser-bar">
+          <div class="lang-laser-runner"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Atmospheric Background Canvas (Zero scroll repaint jank) -->
+  <div class="ambient-canvas" aria-hidden="true">
+    <div class="ambient-aurora-top"></div>
+    <div class="ambient-nebula-right"></div>
+    <div class="ambient-glow-bottom"></div>
+  </div>
+
+  <!-- Global Sticky Navigation -->
+  <header class="site-nav">
+    <div class="container nav-layout">
+      
+      <!-- Brand Lockup -->
+      <a href="#top" class="brand-logo" aria-label="Quix Home" data-i18n-attr="aria-label:nav_brand_aria">
+        <div class="brand-symbol">
+          <img src="./quix-icon-64.png" srcset="./quix-icon-64.png 1x, ./Quix%20Icon.png 2x" alt="Quix official icon" width="34" height="34">
+        </div>
+        <span class="brand-text">Quix</span>
+      </a>
+
+      <!-- Desktop Navigation Links -->
+      <nav aria-label="Main navigation">
+        <ul class="nav-links-list">
+          <li><a href="#reveal" data-i18n="nav_reveal">Product Reveal</a></li>
+          <li><a href="#organization" data-i18n="nav_instances">Instances</a></li>
+          <li><a href="#discovery" data-i18n="nav_discovery">Discovery</a></li>
+          <li><a href="#control" data-i18n="nav_control">Control</a></li>
+          <li><a href="#roadmap" data-i18n="nav_roadmap">Development</a></li>
+        </ul>
+      </nav>
+
+      <!-- Nav Actions -->
+      <div class="nav-actions">
+        <div class="status-badge" title="Early design & architecture stage" data-i18n-attr="title:nav_status_title">
+          <span class="indicator-pulse"></span>
+          <span data-i18n="nav_status">In Planning · Windows First</span>
+        </div>
+
+        <!-- Modern Animated Language Switcher (EN | PT) -->
+        <div class="lang-switcher" role="group" aria-label="Language selector" data-active="en">
+          <button type="button" class="lang-btn active" data-lang="en" aria-label="Switch to English" aria-pressed="true">
+            <span class="lang-code">EN</span>
+          </button>
+          <button type="button" class="lang-btn" data-lang="pt" aria-label="Mudar para Português" aria-pressed="false">
+            <span class="lang-code">PT</span>
+          </button>
+          <span class="lang-pill-glider" aria-hidden="true"></span>
+        </div>
+
+        <a href="https://github.com/QuixLauncher" target="_blank" rel="noopener noreferrer" class="btn-nav-github" aria-label="View Quix on GitHub" data-i18n-attr="aria-label:nav_github_aria">
+          <svg viewBox="0 0 16 16" width="15" height="15" fill="currentColor" aria-hidden="true">
+            <path d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"/>
+          </svg>
+          <span data-i18n="nav_github">GitHub ↗</span>
+        </a>
+
+        <button class="mobile-toggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false">
+          ☰
+        </button>
+      </div>
+
     </div>
   </header>
 
-  <main id="top" class="relative z-10">
+  <main id="top">
 
-    <!-- HERO SECTION -->
-    <section class="pt-16 pb-24 lg:pt-24 lg:pb-32 overflow-hidden">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+    <!-- ====================================================================
+         SECTION 1: IMMERSIVE HERO (Product-Centric)
+         ==================================================================== -->
+    <section class="hero-section">
+      <div class="container hero-editorial">
         
-        <!-- Animated Badge -->
-        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gradient-to-r from-red-500/10 via-red-500/20 to-red-500/10 border border-red-500/30 text-xs font-mono uppercase tracking-wider text-red-300 shadow-[0_0_20px_rgba(229,72,77,0.25)] animate-float-slow mb-8">
-          <i data-lucide="sparkles" class="w-3.5 h-3.5 text-red-400"></i>
-          <span>Reimagining the Minecraft Java Experience</span>
+        <div class="hero-brand-emblem">
+          <img src="./Quix Icon.png" alt="Quix 3D Logo" class="hero-brand-artwork" width="76" height="76">
         </div>
 
-        <!-- Hero Headline -->
-        <h1 class="font-display font-extrabold text-4xl sm:text-6xl lg:text-7xl tracking-tight text-white max-w-4xl mx-auto leading-[1.08] mb-6">
-          The Minecraft launcher<br>
-          <span class="text-transparent bg-clip-text bg-gradient-to-r from-white via-red-200 to-red-500">you always wanted.</span>
+        <div class="section-eyebrow">
+          <span class="eyebrow-dot"></span>
+          <span data-i18n="hero_eyebrow">A Free Minecraft Java Edition Launcher for Windows</span>
+        </div>
+
+        <h1 class="hero-headline" data-i18n-html="hero_headline">
+          Your Minecraft.<br>
+          <span class="text-gradient">Your way.</span>
         </h1>
 
-        <!-- Subtitle -->
-        <p class="text-lg sm:text-xl text-slate-400 max-w-2xl mx-auto font-normal leading-relaxed mb-10">
-          Manage your instances, modpacks, and shaders without broken configs, random Java crashes, or bloated ads. Built from scratch for modern Windows.
+        <p class="hero-copy" data-i18n="hero_copy">
+          A fresh, elegant home for your Minecraft Java setups. Quix is a free Minecraft launcher currently in planning and early development for Windows.
         </p>
 
-        <!-- CTAs -->
-        <div class="flex flex-wrap items-center justify-center gap-4 mb-14">
-          <a href="#hero-preview" class="btn btn-shimmer h-12 px-7 rounded-xl text-white font-bold text-sm tracking-wide gap-2 border-0 shadow-lg">
-            <span>Explore Desktop Concept</span>
-            <i data-lucide="arrow-down" class="w-4 h-4"></i>
+        <div class="hero-cta-group">
+          <a href="#reveal" class="btn btn-primary">
+            <span data-i18n="hero_cta_explore">Explore the Vision</span>
+            <svg viewBox="0 0 20 20" width="16" height="16" fill="currentColor" aria-hidden="true">
+              <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 0 1 1.414 0l6 6a1 1 0 0 1 0 1.414l-6 6a1 1 0 0 1-1.414-1.414L14.586 11H3a1 1 0 1 1 0-2h11.586l-4.293-4.293a1 1 0 0 1 0-1.414Z" clip-rule="evenodd"/>
+            </svg>
           </a>
 
-          <a href="https://github.com/QuixLauncher/quix-launcher" target="_blank" rel="noopener noreferrer" class="btn h-12 px-6 rounded-xl bg-white/[0.05] border border-white/10 hover:bg-white/[0.1] hover:border-white/20 text-white font-semibold text-sm transition-all gap-2 backdrop-blur-md">
-            <i data-lucide="github" class="w-4 h-4"></i>
-            <span>Track on GitHub</span>
-            <i data-lucide="external-link" class="w-3.5 h-3.5 text-slate-400"></i>
+          <a href="https://github.com/QuixLauncher" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+            <span data-i18n="hero_cta_github">View GitHub Organization</span>
+            <svg viewBox="0 0 20 20" width="14" height="14" fill="currentColor" aria-hidden="true">
+              <path d="M11 3a1 1 0 1 0 0 2h2.586l-6.293 6.293a1 1 0 1 0 1.414 1.414L15 6.414V9a1 1 0 1 0 2 0V4a1 1 0 0 0-1-1h-5Z"/>
+              <path d="M5 5a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-3a1 1 0 1 0-2 0v3H5V7h3a1 1 0 0 0 0-2H5Z"/>
+            </svg>
           </a>
         </div>
 
-        <!-- Trust Badges Ticker -->
-        <div class="flex flex-wrap items-center justify-center gap-6 sm:gap-10 text-xs font-mono text-slate-400 border-t border-b border-white/[0.06] py-4 max-w-4xl mx-auto">
-          <div class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-red-400"></i><span>Windows 10 / 11 Native</span></div>
-          <div class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-red-400"></i><span>Modrinth & CurseForge Ready</span></div>
-          <div class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-red-400"></i><span>Strict Folder Sandboxes</span></div>
-          <div class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-red-400"></i><span>100% Free & Open Vision</span></div>
+        <div class="hero-meta-strip">
+          <span><span class="check-icon">✓</span> <span data-i18n="hero_meta_free">Free & Independent</span></span>
+          <span><span class="check-icon">✓</span> <span data-i18n="hero_meta_windows">Windows First</span></span>
+          <span><span class="check-icon">✓</span> <span data-i18n="hero_meta_sandboxed">Sandboxed Instances</span></span>
+          <span><span class="check-icon">✓</span> <span data-i18n="hero_meta_curseforge">Modrinth & Planned CurseForge*</span></span>
         </div>
 
-        <!-- HIGH-FIDELITY INTERACTIVE DESKTOP MOCKUP -->
-        <div class="mt-16 sm:mt-20 relative max-w-5xl mx-auto reveal" id="hero-preview">
-          
-          <!-- Outer Glow Aura (Lightweight gradient without filter: blur) -->
-          <div class="absolute -inset-3 bg-gradient-to-b from-red-600/20 via-red-950/10 to-transparent rounded-3xl opacity-50 -z-10 pointer-events-none"></div>
-
-          <!-- DaisyUI Mockup Window -->
-          <div class="mockup-window border border-white/15 bg-[#0D121F] shadow-2xl rounded-2xl overflow-hidden text-left">
+        <!-- Grand Product Mockup Window -->
+        <div class="hero-product-viewport" id="hero-desktop">
+          <div class="desktop-window">
             
-            <!-- Window Navigation & Breadcrumbs -->
-            <div class="px-5 py-3 border-b border-white/[0.08] bg-quix-bg/90 flex flex-wrap items-center justify-between gap-3 text-xs">
-              <div class="flex items-center gap-2 text-slate-400 font-mono">
-                <span class="text-red-400 font-bold">quix://</span>
-                <span>instances</span>
-                <span class="text-slate-600">/</span>
-                <span class="text-white font-medium" id="breadcrumb-instance">atmospheric-hardcore</span>
+            <!-- Window Title Bar (Windows Native Fluent Style) -->
+            <div class="window-titlebar">
+              <div class="window-title-left">
+                <div class="window-brand-lockup">
+                  <img src="./quix-icon-32.png" alt="Quix" class="window-app-icon" width="16" height="16">
+                  <span class="window-app-name" data-i18n="mock_titlebar_title">Quix (Concept Preview - Windows Build)</span>
+                </div>
+                <div class="window-breadcrumb">
+                  <span class="bc-sep">//</span> <span data-i18n="nav_instances">instances</span> <span class="bc-sep">//</span> <strong id="hero-breadcrumb-target">atmospheric-horizons</strong>
+                </div>
               </div>
-              <div class="flex items-center gap-2 px-3 py-1 rounded-lg bg-white/[0.04] border border-white/[0.08] text-slate-400">
-                <i data-lucide="search" class="w-3.5 h-3.5"></i>
-                <span>Quick switch...</span>
-                <kbd class="kbd kbd-xs bg-white/10 text-slate-300">Ctrl K</kbd>
+              <div class="window-title-center">
+                <div class="window-status-capsule">
+                  <span class="status-dot-green"></span>
+                  <span data-i18n="nav_status">Windows Shell · In Planning</span>
+                </div>
+              </div>
+              <div class="window-controls-win" aria-hidden="true">
+                <span class="win-btn win-min" title="Minimize">
+                  <svg width="10" height="1" viewBox="0 0 10 1"><rect width="10" height="1" fill="currentColor"/></svg>
+                </span>
+                <span class="win-btn win-max" title="Maximize">
+                  <svg width="10" height="10" viewBox="0 0 10 10"><rect x="0.5" y="0.5" width="9" height="9" fill="none" stroke="currentColor"/></svg>
+                </span>
+                <span class="win-btn win-close" title="Close">
+                  <svg width="10" height="10" viewBox="0 0 10 10"><path d="M1 1l8 8m0-8L1 9" stroke="currentColor" stroke-width="1.2"/></svg>
+                </span>
               </div>
             </div>
 
-            <!-- Launcher Workspace Layout -->
-            <div class="grid grid-cols-1 lg:grid-cols-[220px_1fr] min-h-[580px]">
+            <!-- Workspace Grid -->
+            <div class="app-workspace-grid">
               
-              <!-- Sidebar -->
-              <aside class="p-4 bg-quix-bg/60 border-r border-white/[0.08] flex flex-col justify-between">
+              <!-- Left Sidebar -->
+              <aside class="app-nav-rail">
                 <div>
-                  <div class="text-[11px] font-mono uppercase tracking-wider text-slate-500 px-3 mb-2 font-semibold">Navigation</div>
-                  <ul class="space-y-1" id="mockup-nav-tabs">
+                  <!-- Sidebar Product Lockup -->
+                  <div class="app-sidebar-header">
+                    <div class="app-sidebar-brand">
+                      <img src="./quix-icon-64.png" alt="Quix official icon" class="app-sidebar-icon" width="22" height="22">
+                      <span class="app-sidebar-brand-name">Quix</span>
+                    </div>
+                    <span class="app-channel-tag">Windows</span>
+                  </div>
+
+                  <div class="app-rail-label" data-i18n="footer_col_nav">Navigation</div>
+                  <ul class="app-menu-items">
                     <li>
-                      <button class="w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-xs font-semibold bg-red-500/15 text-white border border-red-500/30 shadow-[0_0_15px_rgba(229,72,77,0.2)] transition-all tab-btn active" data-tab="tab-instance">
-                        <span class="flex items-center gap-2.5">
-                          <i data-lucide="layers" class="w-4 h-4 text-red-400"></i>
-                          <span>My Instances</span>
+                      <button class="app-tab-action active" type="button" data-mock-tab="view-instances">
+                        <span class="tab-group-lead">
+                          <svg viewBox="0 0 20 20" fill="currentColor"><path d="M7 3a1 1 0 0 0 0 2h6a1 1 0 1 0 0-2H7ZM4 7a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v10a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7Z"/></svg>
+                          <span data-i18n="mock_nav_instances">Library</span>
                         </span>
-                        <span class="badge badge-sm bg-white/10 text-white font-mono border-0">3</span>
+                        <span class="tab-tag-badge">3</span>
                       </button>
                     </li>
                     <li>
-                      <button class="w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-xs font-medium text-slate-400 hover:text-white hover:bg-white/[0.04] transition-all tab-btn" data-tab="tab-discover">
-                        <span class="flex items-center gap-2.5">
-                          <i data-lucide="compass" class="w-4 h-4"></i>
-                          <span>Discover Hub</span>
+                      <button class="app-tab-action" type="button" data-mock-tab="view-discovery">
+                        <span class="tab-group-lead">
+                          <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 2a8 8 0 1 0 0 16 8 8 0 0 0 0-16Zm1 11H9v-2h2v2Zm0-4H9V5h2v4Z"/></svg>
+                          <span data-i18n="mock_nav_discover">Discover</span>
                         </span>
-                        <span class="text-[10px] text-emerald-400 font-mono font-bold">MR + CF</span>
+                        <span class="tab-tag-badge" style="color: var(--emerald);">Hub</span>
                       </button>
                     </li>
                     <li>
-                      <button class="w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-xs font-medium text-slate-400 hover:text-white hover:bg-white/[0.04] transition-all tab-btn" data-tab="tab-engine">
-                        <span class="flex items-center gap-2.5">
-                          <i data-lucide="cpu" class="w-4 h-4"></i>
-                          <span>Engine & JVM</span>
+                      <button class="app-tab-action" type="button" data-mock-tab="view-controls">
+                        <span class="tab-group-lead">
+                          <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 0 1-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 0 1 .947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 0 1 2.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 0 1 2.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 0 1 .947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 0 1-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 0 1-2.287-.947ZM10 13a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" clip-rule="evenodd"/></svg>
+                          <span data-i18n="mock_nav_engine">System</span>
                         </span>
-                        <span class="text-[10px] text-amber-400 font-mono">Java 21</span>
+                        <span class="tab-tag-badge" style="color: var(--amber);">Java</span>
                       </button>
                     </li>
                   </ul>
 
-                  <!-- Pinned Profiles -->
-                  <div class="text-[11px] font-mono uppercase tracking-wider text-slate-500 px-3 mt-6 mb-2 font-semibold">Recent Setups</div>
-                  <div class="space-y-1">
-                    <button class="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs text-slate-300 hover:bg-white/[0.04] hover:text-white text-left transition-colors instance-switcher active" data-instance-name="Atmospheric Hardcore" data-loader="NEOFORGE 21.1.65" data-mods="86 Mods" data-playtime="48.2 Hours" data-mc="1.21.1">
-                      <div class="w-4 h-4 rounded bg-red-900/60 border border-red-500/50 flex items-center justify-center text-[10px] font-bold text-red-200">H</div>
-                      <span class="truncate font-medium">Atmospheric Hardcore</span>
-                    </button>
-                    <button class="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs text-slate-400 hover:bg-white/[0.04] hover:text-white text-left transition-colors instance-switcher" data-instance-name="Create: Steam & Rails" data-loader="FORGE 47.3.0" data-mods="142 Mods" data-playtime="112.5 Hours" data-mc="1.20.1">
-                      <div class="w-4 h-4 rounded bg-amber-900/60 border border-amber-500/50 flex items-center justify-center text-[10px] font-bold text-amber-200">C</div>
-                      <span class="truncate font-medium">Create: Steam & Rails</span>
-                    </button>
-                    <button class="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs text-slate-400 hover:bg-white/[0.04] hover:text-white text-left transition-colors instance-switcher" data-instance-name="Speedrun Practice" data-loader="FABRIC 0.16.5" data-mods="14 Mods" data-playtime="19.4 Hours" data-mc="1.21.1">
-                      <div class="w-4 h-4 rounded bg-cyan-900/60 border border-cyan-500/50 flex items-center justify-center text-[10px] font-bold text-cyan-200">S</div>
-                      <span class="truncate font-medium">Speedrun Practice</span>
-                    </button>
-                  </div>
+                  <!-- Pinned Profiles List with Authentic Minecraft Voxel Cubes -->
+                  <div class="app-rail-label" style="margin-top: 26px;" data-i18n="mock_rail_recent">Recent Instances</div>
+                  <ul class="sidebar-instances-pinned">
+                    <li>
+                      <button class="pinned-instance-row active" type="button" data-name="Atmospheric Horizons" data-loader="NEOFORGE 21.1" data-mc="Minecraft 1.21.1" data-mods="84 Mods" data-playtime="48.5h">
+                        <svg class="voxel-cube-icon" viewBox="0 0 20 20" width="18" height="18" aria-hidden="true">
+                          <polygon points="10,2 18,6.5 10,11 2,6.5" fill="#3D5A45"/>
+                          <polygon points="2,6.5 10,11 10,19 2,14.5" fill="#2B1F1D"/>
+                          <polygon points="10,11 18,6.5 18,14.5 10,19" fill="#E5484D"/>
+                        </svg>
+                        <span>Atmospheric Horizons</span>
+                      </button>
+                    </li>
+                    <li>
+                      <button class="pinned-instance-row" type="button" data-name="Create: Steam & Rails" data-loader="FORGE 47.3" data-mc="Minecraft 1.20.1" data-mods="126 Mods" data-playtime="114.2h">
+                        <svg class="voxel-cube-icon" viewBox="0 0 20 20" width="18" height="18" aria-hidden="true">
+                          <polygon points="10,2 18,6.5 10,11 2,6.5" fill="#F59E0B"/>
+                          <polygon points="2,6.5 10,11 10,19 2,14.5" fill="#B45309"/>
+                          <polygon points="10,11 18,6.5 18,14.5 10,19" fill="#78350F"/>
+                        </svg>
+                        <span>Create: Steam & Rails</span>
+                      </button>
+                    </li>
+                    <li>
+                      <button class="pinned-instance-row" type="button" data-name="Speedrun Practice" data-loader="FABRIC 0.16" data-mc="Minecraft 1.21.1" data-mods="12 Mods" data-playtime="18.0h">
+                        <svg class="voxel-cube-icon" viewBox="0 0 20 20" width="18" height="18" aria-hidden="true">
+                          <polygon points="10,2 18,6.5 10,11 2,6.5" fill="#2DD4BF"/>
+                          <polygon points="2,6.5 10,11 10,19 2,14.5" fill="#0F766E"/>
+                          <polygon points="10,11 18,6.5 18,14.5 10,19" fill="#134E4A"/>
+                        </svg>
+                        <span>Speedrun Practice</span>
+                      </button>
+                    </li>
+                  </ul>
                 </div>
 
-                <!-- Memory Meter at bottom of sidebar -->
-                <div class="p-3 rounded-xl bg-white/[0.03] border border-white/[0.06] mt-4">
-                  <div class="flex items-center justify-between text-[11px] font-mono text-slate-400 mb-1.5">
-                    <span>RAM Heap</span>
-                    <span class="text-red-400 font-bold" id="sidebar-ram-display">6.0 / 16 GB</span>
+                <div class="sidebar-engine-metrics">
+                  <div class="metrics-title">
+                    <span data-i18n="mock_rail_storage">Memory Allocation</span>
+                    <span style="color: var(--accent-red-soft); font-weight: 700;">6.0 GB</span>
                   </div>
-                  <div class="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden">
-                    <div class="h-full bg-gradient-to-r from-red-600 to-red-400 rounded-full transition-all duration-300" id="sidebar-ram-bar" style="width: 38%;"></div>
+                  <div class="metrics-meter-track">
+                    <div class="metrics-meter-fill"></div>
                   </div>
                 </div>
               </aside>
 
-              <!-- Main Viewport Content -->
-              <div class="p-5 sm:p-6 bg-quix-canvas relative">
+              <!-- App Stage Content Viewport -->
+              <div class="app-stage-view">
                 
-                <!-- TAB 1: INSTANCES VIEW -->
-                <div class="tab-pane block space-y-6" id="pane-tab-instance">
+                <!-- VIEW 1: INSTANCES -->
+                <div class="app-view-panel active" id="view-instances">
                   
-                  <!-- Instance Banner Card -->
-                  <div class="relative rounded-2xl overflow-hidden border border-white/10 bg-quix-surface shadow-xl">
-                    
-                    <!-- Atmospheric Landscape Artwork -->
-                    <div class="h-52 relative overflow-hidden bg-gradient-to-b from-[#241320] via-[#161B2B] to-quix-surface">
-                      <svg viewBox="0 0 800 240" preserveAspectRatio="none" style="width: 100%; height: 210px; max-height: 210px; display: block;" class="opacity-80">
-                        <defs>
-                          <radialGradient id="sun-flare" cx="50%" cy="100%" r="50%">
-                            <stop offset="0%" stop-color="#E5484D" stop-opacity="0.45"/>
-                            <stop offset="60%" stop-color="#E5484D" stop-opacity="0.08"/>
-                            <stop offset="100%" stop-color="transparent"/>
-                          </radialGradient>
-                        </defs>
-                        <rect width="800" height="240" fill="transparent"/>
-                        <circle cx="560" cy="180" r="140" fill="url(#sun-flare)"/>
-                        <!-- Peaks -->
-                        <polygon points="0,240 80,140 180,200 290,120 420,210 540,90 680,190 800,110 800,240" fill="#1C2436" opacity="0.7"/>
-                        <polygon points="0,240 120,170 220,220 350,150 480,210 600,130 730,200 800,160 800,240" fill="#131A29"/>
-                        <path d="M0,238 Q 400,215 800,238" stroke="rgba(229, 72, 77, 0.5)" stroke-width="2"/>
-                      </svg>
-                      <!-- Gradient Veil -->
-                      <div class="absolute inset-0 bg-gradient-to-t from-quix-surface via-quix-surface/40 to-transparent"></div>
+                  <!-- Master Instance Hero Banner (Minecraft Voxel Twilight Horizon) -->
+                  <div class="instance-hero-banner">
+                    <div class="scenic-landscape-art">
+                      <img src="./instance-banner-taiga.png" alt="Minecraft Taiga landscape" class="banner-taiga-img" width="1200" height="400">
+                      <div class="scenic-veil-overlay"></div>
+                      <div class="banner-voxel-hud">
+                        <span class="hud-coords">XYZ: -248.5 / 72.0 / 1032.4</span>
+                        <span class="hud-biome" data-i18n="mock_hud_biome">Taiga Highlands · 60 FPS</span>
+                      </div>
                     </div>
 
-                    <!-- Overlay Meta -->
-                    <div class="absolute bottom-5 left-5 right-5 flex flex-wrap items-end justify-between gap-4 z-10">
-                      <div>
-                        <div class="flex items-center gap-2 mb-2 font-mono text-xs">
-                          <span class="badge badge-error badge-sm text-[10px] font-bold text-white uppercase" id="card-loader-badge">NEOFORGE 21.1.65</span>
-                          <span class="text-slate-300 font-medium" id="card-mc-version">Minecraft 1.21.1</span>
-                          <span class="text-slate-500">•</span>
-                          <span class="text-slate-300">Java 21</span>
+                    <div class="banner-content-layout">
+                      <div class="banner-meta-col">
+                        <div class="banner-tags-row">
+                          <span class="loader-badge-pill" id="hero-loader-tag">NEOFORGE 21.1</span>
+                          <span class="mc-version-label" id="hero-mc-ver">Minecraft 1.21.1</span>
+                          <span class="mc-version-label">•</span>
+                          <span class="mc-version-label">Java 21</span>
                         </div>
-                        <h2 class="text-2xl sm:text-3xl font-display font-extrabold text-white tracking-tight" id="card-instance-title">Atmospheric Hardcore</h2>
-                        <div class="flex items-center gap-3 text-xs text-slate-300 mt-1 font-medium">
-                          <span id="card-mods-count">86 Mods Loaded</span>
+                        <h2 class="banner-instance-title" id="hero-instance-title">Atmospheric Horizons</h2>
+                        <div class="banner-stats-row">
+                          <span id="hero-mods-count">84 Mods Active</span>
                           <span>•</span>
-                          <span>Complementary Reimagined Ultra</span>
+                          <span>Complementary Reimagined Shaders</span>
                           <span>•</span>
-                          <span id="card-playtime">48.2 Hours Logged</span>
+                          <span id="hero-playtime">48.5h Logged</span>
                         </div>
                       </div>
 
-                      <!-- Play Button -->
-                      <button class="btn btn-shimmer h-12 px-8 rounded-xl text-white font-bold text-sm tracking-wide border-0 shadow-[0_0_25px_rgba(229,72,77,0.5)] flex items-center gap-2.5 active:scale-95 transition-transform" id="btn-mock-play">
-                        <i data-lucide="play" class="w-4 h-4 fill-white"></i>
-                        <span>Play Instance</span>
+                      <button class="btn-launch-hero" type="button" aria-label="Launch Minecraft instance">
+                        <span class="launch-ready-pulse" aria-hidden="true"></span>
+                        <svg viewBox="0 0 20 20" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M6.3 2.841A1.5 1.5 0 0 0 4 4.11v11.78a1.5 1.5 0 0 0 2.3 1.269l9.344-5.89a1.5 1.5 0 0 0 0-2.538L6.3 2.84Z"/></svg>
+                        <span data-i18n="mock_btn_launch">Launch Instance</span>
                       </button>
                     </div>
-
                   </div>
 
-                  <!-- Sub-Cards Grid: Mod Tray & Config -->
-                  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <!-- Lower Split: Installed Mods & Sandbox Specs -->
+                  <div class="instance-lower-grid">
                     
-                    <!-- Left: Interactive Mod Tray -->
-                    <div class="p-4 rounded-xl bg-quix-surface/80 border border-white/[0.08] shadow-sm">
-                      <div class="flex items-center justify-between text-xs font-semibold text-white mb-3">
-                        <span class="flex items-center gap-2">
-                          <i data-lucide="package" class="w-4 h-4 text-red-400"></i>
-                          <span>Active Mods Tray</span>
-                        </span>
-                        <span class="text-[11px] text-slate-400 font-normal">Click toggle to test</span>
+                    <!-- Left: Mod Tray with interactive switches -->
+                    <div class="content-subcard">
+                      <div class="subcard-head">
+                        <span data-i18n="mock_tray_title">Installed Mod Tray</span>
+                        <span class="meta-pill" data-i18n="mock_tray_manage">Interactive Preview</span>
                       </div>
-                      
-                      <div class="space-y-2 text-xs">
-                        <div class="flex items-center justify-between p-2 rounded-lg bg-white/[0.02] border border-white/[0.04]">
-                          <span class="font-medium text-slate-200">Sodium Rendering Engine</span>
-                          <input type="checkbox" class="toggle toggle-error toggle-xs" checked />
-                        </div>
-                        <div class="flex items-center justify-between p-2 rounded-lg bg-white/[0.02] border border-white/[0.04]">
-                          <span class="font-medium text-slate-200">Iris Shader Pipeline</span>
-                          <input type="checkbox" class="toggle toggle-error toggle-xs" checked />
-                        </div>
-                        <div class="flex items-center justify-between p-2 rounded-lg bg-white/[0.02] border border-white/[0.04]">
-                          <span class="font-medium text-slate-200">Create Mod (Automation)</span>
-                          <input type="checkbox" class="toggle toggle-error toggle-xs" checked />
-                        </div>
-                        <div class="flex items-center justify-between p-2 rounded-lg bg-white/[0.02] border border-white/[0.04]">
-                          <span class="font-medium text-slate-200">Distant Horizons (LOD)</span>
-                          <input type="checkbox" class="toggle toggle-error toggle-xs" checked />
-                        </div>
-                      </div>
+                      <ul class="mods-checklist">
+                        <li class="mod-check-item">
+                          <div class="mod-info-group">
+                            <span class="mod-status-indicator"></span>
+                            <div>
+                              <div class="mod-item-name">Sodium Rendering Engine</div>
+                              <div class="mod-item-loader" data-i18n="mock_mod1_desc">Optimized Graphics Pipeline</div>
+                            </div>
+                          </div>
+                          <div class="toggle-switch" role="checkbox" aria-checked="true" tabindex="0"></div>
+                        </li>
+                        <li class="mod-check-item">
+                          <div class="mod-info-group">
+                            <span class="mod-status-indicator"></span>
+                            <div>
+                              <div class="mod-item-name">Iris Shader Pipeline</div>
+                              <div class="mod-item-loader" data-i18n="mock_mod2_desc">Shaderpack Compatibility Layer</div>
+                            </div>
+                          </div>
+                          <div class="toggle-switch" role="checkbox" aria-checked="true" tabindex="0"></div>
+                        </li>
+                        <li class="mod-check-item">
+                          <div class="mod-info-group">
+                            <span class="mod-status-indicator"></span>
+                            <div>
+                              <div class="mod-item-name">Create Mod (Mechanical Kinetics)</div>
+                              <div class="mod-item-loader" data-i18n="mock_mod3_desc">Rotational Automation Systems</div>
+                            </div>
+                          </div>
+                          <div class="toggle-switch" role="checkbox" aria-checked="true" tabindex="0"></div>
+                        </li>
+                      </ul>
                     </div>
 
-                    <!-- Right: Config Inspector -->
-                    <div class="p-4 rounded-xl bg-quix-surface/80 border border-white/[0.08] shadow-sm">
-                      <div class="flex items-center justify-between text-xs font-semibold text-white mb-3">
-                        <span class="flex items-center gap-2">
-                          <i data-lucide="shield-check" class="w-4 h-4 text-emerald-400"></i>
-                          <span>Sandbox Isolation Specs</span>
-                        </span>
-                        <span class="badge badge-success badge-sm text-[10px] font-mono">Isolated</span>
+                    <!-- Right: Sandbox Isolation Specs -->
+                    <div class="content-subcard">
+                      <div class="subcard-head">
+                        <span data-i18n="mock_specs_title">Instance Sandbox Specs</span>
+                        <span class="meta-pill" style="color: var(--emerald);" data-i18n="mock_specs_pill_isolated">Isolated</span>
                       </div>
-
-                      <div class="space-y-2 text-xs">
-                        <div class="flex items-center justify-between py-1.5 border-b border-white/[0.06]">
-                          <span class="text-slate-400">Save Directory</span>
-                          <span class="font-mono text-slate-200">/instances/hardcore/saves/</span>
-                        </div>
-                        <div class="flex items-center justify-between py-1.5 border-b border-white/[0.06]">
-                          <span class="text-slate-400">Java Runtime</span>
-                          <span class="font-mono text-slate-200">Temurin OpenJDK 21.0.4</span>
-                        </div>
-                        <div class="flex items-center justify-between py-1.5 border-b border-white/[0.06]">
-                          <span class="text-slate-400">Active Shaders</span>
-                          <span class="font-mono text-slate-200">Complementary v5.2</span>
-                        </div>
-                        <div class="flex items-center justify-between py-1.5">
-                          <span class="text-slate-400">Crash Protection</span>
-                          <span class="font-mono text-emerald-400 font-semibold">Snapshot Vault Enabled</span>
-                        </div>
+                      <div class="spec-detail-row">
+                        <span class="spec-label" data-i18n="mock_specs_container">File Container</span>
+                        <span class="spec-value">/instances/atmospheric/</span>
+                      </div>
+                      <div class="spec-detail-row">
+                        <span class="spec-label" data-i18n="mock_specs_java">Java Version</span>
+                        <span class="spec-value">Temurin OpenJDK 21</span>
+                      </div>
+                      <div class="spec-detail-row">
+                        <span class="spec-label" data-i18n="mock_specs_world">World Storage</span>
+                        <span class="spec-value">/saves/horizons-world/</span>
+                      </div>
+                      <div class="spec-detail-row">
+                        <span class="spec-label" data-i18n="mock_specs_shaders">Active Shaders</span>
+                        <span class="spec-value">Complementary v5.2</span>
                       </div>
                     </div>
 
@@ -532,112 +414,76 @@
 
                 </div>
 
-                <!-- TAB 2: DISCOVER HUB (Modrinth + CurseForge) -->
-                <div class="tab-pane hidden space-y-4" id="pane-tab-discover">
-                  <div class="flex items-center gap-3 p-3 rounded-xl bg-quix-surface border border-white/10 text-xs text-slate-400">
-                    <i data-lucide="search" class="w-4 h-4 text-slate-400"></i>
-                    <input type="text" placeholder="Search across Modrinth & CurseForge in real-time..." class="bg-transparent border-0 outline-none w-full text-white placeholder-slate-500 text-xs">
-                    <span class="badge badge-sm bg-white/10 text-slate-300">All Categories</span>
+                <!-- VIEW 2: DISCOVERY HUB PREVIEW -->
+                <div class="app-view-panel" id="view-discovery">
+                  <div class="discovery-search-header" style="border-radius: var(--radius-md); margin-bottom: 20px;">
+                    <div class="discovery-search-input">
+                      <svg viewBox="0 0 20 20" width="16" height="16" fill="currentColor"><path fill-rule="evenodd" d="M9 3.5a5.5 5.5 0 1 0 0 11 5.5 5.5 0 0 0 0-11ZM2 9a7 7 0 1 1 12.452 4.391l3.328 3.329a.75.75 0 1 1-1.06 1.06l-3.329-3.328A7 7 0 0 1 2 9Z" clip-rule="evenodd"/></svg>
+                      <span data-i18n="mock_disc_search_ph">Search mods, shaders, and modpacks...</span>
+                    </div>
+                    <div class="discovery-filter-pills">
+                      <button class="filter-pill-btn active" type="button" data-i18n="mock_disc_filter_all">All</button>
+                      <button class="filter-pill-btn" type="button" data-i18n="mock_disc_filter_mods">Mods</button>
+                      <button class="filter-pill-btn" type="button" data-i18n="mock_disc_filter_packs">Modpacks</button>
+                      <button class="filter-pill-btn" type="button" data-i18n="mock_disc_filter_shaders">Shaders</button>
+                    </div>
                   </div>
 
-                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-left">
-                    <div class="p-3.5 rounded-xl bg-quix-surface border border-white/10 hover:border-red-500/30 transition-all">
-                      <div class="flex items-start justify-between">
-                        <div class="font-bold text-white text-sm">Sodium</div>
-                        <span class="badge badge-sm bg-emerald-500/20 text-emerald-300 font-mono text-[10px] border-0">Modrinth</span>
+                  <div class="mockup-two-col-grid">
+                    <div class="content-subcard">
+                      <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px;">
+                        <h4 style="font-weight: 700; color: #FFF; font-size: 0.95rem;">Sodium</h4>
+                        <span class="provider-source-tag tag-modrinth">Modrinth</span>
                       </div>
-                      <p class="text-xs text-slate-400 mt-1 line-clamp-2">Next-generation rendering engine drastically improving frame rates and frame pacing.</p>
-                      <div class="flex items-center gap-3 text-[11px] text-slate-400 mt-2 font-mono">
-                        <span>★ 4.9</span>
-                        <span>42.8M Downloads</span>
-                      </div>
+                      <p style="font-size: 0.8rem; color: var(--text-secondary); line-height: 1.5; margin-bottom: 12px;"><span data-i18n="mock_disc_sodium_summary">Modern rendering engine replacing vanilla graphics code for smooth frame rates.</span></p>
+                      <div style="font-size: 0.72rem; color: var(--text-muted); font-family: var(--font-mono); border-top: 1px solid var(--border-hairline); padding-top: 10px;"><span data-i18n="mock_disc_sodium_compat">Compatible with NeoForge & Fabric</span></div>
                     </div>
 
-                    <div class="p-3.5 rounded-xl bg-quix-surface border border-white/10 hover:border-red-500/30 transition-all">
-                      <div class="flex items-start justify-between">
-                        <div class="font-bold text-white text-sm">Iris Shaders</div>
-                        <span class="badge badge-sm bg-emerald-500/20 text-emerald-300 font-mono text-[10px] border-0">Modrinth</span>
+                    <div class="content-subcard">
+                      <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px;">
+                        <h4 style="font-weight: 700; color: #FFF; font-size: 0.95rem;">Create Mod</h4>
+                        <span class="provider-source-tag tag-curseforge">Planned CurseForge*</span>
                       </div>
-                      <p class="text-xs text-slate-400 mt-1 line-clamp-2">Modern shaderpack loader with complete OptiFine parity and stutter-free compilation.</p>
-                      <div class="flex items-center gap-3 text-[11px] text-slate-400 mt-2 font-mono">
-                        <span>★ 4.8</span>
-                        <span>29.1M Downloads</span>
-                      </div>
-                    </div>
-
-                    <div class="p-3.5 rounded-xl bg-quix-surface border border-white/10 hover:border-red-500/30 transition-all">
-                      <div class="flex items-start justify-between">
-                        <div class="font-bold text-white text-sm">Create Mod</div>
-                        <span class="badge badge-sm bg-amber-500/20 text-amber-300 font-mono text-[10px] border-0">CurseForge</span>
-                      </div>
-                      <p class="text-xs text-slate-400 mt-1 line-clamp-2">Aesthetic mechanics, rotational energy, automation gearboxes, and trains.</p>
-                      <div class="flex items-center gap-3 text-[11px] text-slate-400 mt-2 font-mono">
-                        <span>★ 5.0</span>
-                        <span>61.4M Downloads</span>
-                      </div>
-                    </div>
-
-                    <div class="p-3.5 rounded-xl bg-quix-surface border border-white/10 hover:border-red-500/30 transition-all">
-                      <div class="flex items-start justify-between">
-                        <div class="font-bold text-white text-sm">Just Enough Items (JEI)</div>
-                        <span class="badge badge-sm bg-amber-500/20 text-amber-300 font-mono text-[10px] border-0">CurseForge</span>
-                      </div>
-                      <p class="text-xs text-slate-400 mt-1 line-clamp-2">View recipes, formulas, and item uses directly inside your inventory screen.</p>
-                      <div class="flex items-center gap-3 text-[11px] text-slate-400 mt-2 font-mono">
-                        <span>★ 4.9</span>
-                        <span>118M Downloads</span>
-                      </div>
+                      <p style="font-size: 0.8rem; color: var(--text-secondary); line-height: 1.5; margin-bottom: 12px;"><span data-i18n="mock_disc_create_summary">Aesthetic technology, rotational energy, automation gearboxes, and trains.</span></p>
+                      <div style="font-size: 0.72rem; color: var(--text-muted); font-family: var(--font-mono); border-top: 1px solid var(--border-hairline); padding-top: 10px;"><span data-i18n="mock_disc_create_compat">Planned CurseForge API integration (Subject to approval)</span></div>
                     </div>
                   </div>
                 </div>
 
-                <!-- TAB 3: ENGINE & SHADERS (Interactive Slider) -->
-                <div class="tab-pane hidden space-y-4" id="pane-tab-engine">
-                  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    
-                    <div class="p-4 rounded-xl bg-quix-surface border border-white/10 text-left">
-                      <div class="font-bold text-sm text-white mb-2">Memory Allocation (Heap)</div>
-                      <p class="text-xs text-slate-400 mb-4">Click along the slider track to simulate setting the maximum RAM allocation:</p>
-                      
-                      <div class="space-y-2">
-                        <div class="flex justify-between text-xs font-mono">
-                          <span class="text-slate-400">Allocated RAM:</span>
-                          <span class="text-red-400 font-bold text-sm" id="interactive-ram-text">6.0 GB</span>
-                        </div>
-                        <input type="range" min="2" max="16" value="6" step="0.5" class="range range-error range-xs" id="interactive-ram-range" />
-                        <div class="flex justify-between text-[10px] text-slate-500 font-mono">
-                          <span>2 GB (Min)</span>
-                          <span>6–8 GB (Recommended)</span>
-                          <span>16 GB (Max)</span>
-                        </div>
+                <!-- VIEW 3: SYSTEM & JAVA CONTROLS -->
+                <div class="app-view-panel" id="view-controls">
+                  <div class="mockup-two-col-grid">
+                    <div class="content-subcard">
+                      <div class="subcard-head">
+                        <span data-i18n="mock_ctrl_java_title">Smart Java Management</span>
+                        <span class="meta-pill" style="color: var(--amber);" data-i18n="mock_ctrl_java_pill">Automatic</span>
                       </div>
-
-                      <div class="mt-4 pt-3 border-t border-white/[0.08] text-xs font-mono text-slate-400">
-                        <span class="text-[10px] text-slate-500 block uppercase">Optimized GC Arguments:</span>
-                        <code class="text-red-300 text-[11px] block mt-1 bg-black/30 p-2 rounded">-XX:+UseG1GC -XX:MaxGCPauseMillis=200</code>
+                      <p style="font-size: 0.82rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 16px;" data-i18n="mock_ctrl_java_desc">
+                        Designed to automatically detect and match verified OpenJDK builds for your loader version, reducing manual path configuration.
+                      </p>
+                      <div class="spec-detail-row">
+                        <span class="spec-label" data-i18n="mock_ctrl_java_pinned">Pinned Runtime</span>
+                        <span class="spec-value">Eclipse Temurin 21.0.4</span>
+                      </div>
+                      <div class="spec-detail-row">
+                        <span class="spec-label" data-i18n="mock_ctrl_java_compat">Legacy Compatibility</span>
+                        <span class="spec-value" data-i18n="mock_ctrl_java_compat_val">Java 8 & Java 17 Supported</span>
                       </div>
                     </div>
 
-                    <div class="p-4 rounded-xl bg-quix-surface border border-white/10 text-left">
-                      <div class="font-bold text-sm text-white mb-2">Shader Controls</div>
-                      <p class="text-xs text-slate-400 mb-4">Live hot-swappable shader presets without restarting Minecraft:</p>
-
-                      <div class="space-y-2.5 text-xs">
-                        <div class="flex items-center justify-between p-2 rounded-lg bg-white/[0.03]">
-                          <span>Dynamic Shadows Resolution</span>
-                          <span class="font-mono text-red-400 font-semibold">2048 × 2048</span>
-                        </div>
-                        <div class="flex items-center justify-between p-2 rounded-lg bg-white/[0.03]">
-                          <span>LabPBR Normal Maps</span>
-                          <span class="badge badge-sm badge-error text-[10px]">Active</span>
-                        </div>
-                        <div class="flex items-center justify-between p-2 rounded-lg bg-white/[0.03]">
-                          <span>Volumetric Fog & Bloom</span>
-                          <span class="badge badge-sm badge-success text-[10px]">Ultra Preset</span>
-                        </div>
+                    <div class="content-subcard">
+                      <div class="subcard-head">
+                        <span data-i18n="mock_ctrl_snapshot_title">Safe Updates & Snapshots</span>
+                        <span class="meta-pill" style="color: var(--emerald);" data-i18n="mock_ctrl_snapshot_pill">Protected</span>
+                      </div>
+                      <p style="font-size: 0.82rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 16px;" data-i18n="mock_ctrl_snapshot_desc">
+                        Local snapshots capture your exact mod and configuration state before updates, making rollbacks straightforward if an experimental mod update fails to launch.
+                      </p>
+                      <div class="spec-detail-row">
+                        <span class="spec-label" data-i18n="mock_ctrl_snapshot_label">Pre-Update Snapshot</span>
+                        <span class="spec-value" style="color: var(--emerald);" data-i18n="mock_ctrl_snapshot_val">Enabled</span>
                       </div>
                     </div>
-
                   </div>
                 </div>
 
@@ -645,67 +491,188 @@
             </div>
 
           </div>
-
-          <p class="text-center text-xs font-mono text-slate-500 mt-4">
-            * Interactive desktop concept. Quix is currently in early architecture; no functional binary download is distributed at this stage.
-          </p>
         </div>
 
       </div>
     </section>
 
-    <!-- Glowing Laser Line Divider -->
-    <div class="max-w-5xl mx-auto px-4 my-2 flex items-center justify-center gap-4 reveal">
-      <div class="h-px bg-gradient-to-r from-transparent via-red-500/40 to-transparent flex-grow"></div>
-      <div class="w-2 h-2 rotate-45 bg-red-500 shadow-[0_0_12px_rgba(229,72,77,0.9)]"></div>
-      <div class="h-px bg-gradient-to-r from-transparent via-red-500/40 to-transparent flex-grow"></div>
-    </div>
-
-    <!-- SECTION 2: WHY QUIX / VALUE PROPOSITION -->
-    <section class="py-24 border-t border-b border-white/[0.08] bg-quix-canvas/50 relative" id="features">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- ====================================================================
+         SECTION 2: PRODUCT REVEAL (The Desktop Canvas)
+         ==================================================================== -->
+    <section class="section-spacing reveal-showcase-wrap" id="reveal">
+      <div class="container">
         
-        <div class="text-center max-w-3xl mx-auto mb-16 reveal">
-          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-500/10 border border-red-500/20 text-xs font-mono uppercase text-red-400 mb-4">
-            <span>The Value Proposition</span>
+        <div class="section-header center">
+          <div class="section-eyebrow">
+            <span class="eyebrow-dot"></span>
+            <span data-i18n="reveal_eyebrow">Unveiling the Experience</span>
           </div>
-          <h2 class="font-display font-extrabold text-3xl sm:text-5xl tracking-tight text-white mb-5">
-            Say goodbye to <span class="text-transparent bg-clip-text bg-gradient-to-r from-red-400 to-red-600">setup fatigue.</span>
+          <h2 class="section-title" data-i18n-html="reveal_title">
+            Built like a modern tool.<br>
+            <em>Not an advertisement board.</em>
           </h2>
-          <p class="text-slate-400 text-base sm:text-lg">
-            Modded Minecraft is one of the greatest creative sandboxes in gaming history. But managing versions, loaders, broken shader paths, and corrupted configs shouldn't feel like a second job.
+          <p class="section-description" data-i18n="reveal_desc">
+            The desktop experience is designed around three focused spaces: an isolated library for your worlds, a clean discovery hub for community content, and an intuitive system panel.
           </p>
         </div>
 
-        <!-- 2-Column Comparison Layout (Editorial & High-Impact) -->
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 reveal">
+        <div class="reveal-pillars-grid">
           
-          <!-- Card 1: The Problem -->
-          <div class="p-8 sm:p-10 rounded-2xl bg-gradient-to-b from-white/[0.03] to-white/[0.01] border border-white/[0.08] relative overflow-hidden">
-            <div class="text-xs font-mono uppercase text-slate-500 tracking-wider font-bold mb-4">01 / The Status Quo</div>
-            <h3 class="font-display font-bold text-2xl text-white mb-4">The Single-Folder Trap</h3>
-            <p class="text-slate-400 text-sm leading-relaxed mb-6">
-              Most setups dump everything into one crowded <code class="text-red-400 bg-red-950/40 px-1.5 py-0.5 rounded">.minecraft</code> directory. One experimental modpack silently overwrites keybinds, breaks another world's shader cache, or leaves you stuck with cryptic crash logs.
+          <!-- Pillar 1 -->
+          <div class="reveal-feature-col">
+            <div class="reveal-col-header">
+              <div class="reveal-step-num" data-i18n="reveal_p1_step">01 // THE LIBRARY</div>
+              <h3 class="reveal-col-title" data-i18n="reveal_p1_title">Every world in its own sandbox</h3>
+              <p class="reveal-col-body" style="margin-top: 12px;" data-i18n="reveal_p1_body">
+                Keep your vanilla survival, tech modpacks, and speedrun setups completely separate. Isolated instance directories help protect against mod conflicts, separate your options, and preserve your custom keybinds.
+              </p>
+            </div>
+            <div class="reveal-visual-box">
+              <span data-i18n="reveal_p1_tag_left">Instance Isolation</span>
+              <span class="reveal-badge-tag" data-i18n="reveal_p1_tag_right">Dedicated Sandboxes</span>
+            </div>
+          </div>
+
+          <!-- Pillar 2 -->
+          <div class="reveal-feature-col">
+            <div class="reveal-col-header">
+              <div class="reveal-step-num" data-i18n="reveal_p2_step">02 // DISCOVERY</div>
+              <h3 class="reveal-col-title" data-i18n="reveal_p2_title">Content discovery brought together</h3>
+              <p class="reveal-col-body" style="margin-top: 12px;" data-i18n="reveal_p2_body">
+                Explore community mods, shaders, and resource packs through Modrinth and planned CurseForge* support, without juggling dozens of suspicious browser tabs.
+              </p>
+            </div>
+            <div class="reveal-visual-box">
+              <span data-i18n="reveal_p2_tag_left">Ecosystems</span>
+              <span class="reveal-badge-tag" data-i18n="reveal_p2_tag_right">Modrinth + Planned CurseForge*</span>
+            </div>
+          </div>
+
+          <!-- Pillar 3 -->
+          <div class="reveal-feature-col">
+            <div class="reveal-col-header">
+              <div class="reveal-step-num" data-i18n="reveal_p3_step">03 // CONTROL</div>
+              <h3 class="reveal-col-title" data-i18n="reveal_p3_title">Smart runtimes, simplified</h3>
+              <p class="reveal-col-body" style="margin-top: 12px;" data-i18n="reveal_p3_body">
+                Designed to automatically detect and match the recommended OpenJDK version for your Minecraft release, helping you avoid manual environment path errors.
+              </p>
+            </div>
+            <div class="reveal-visual-box">
+              <span data-i18n="reveal_p3_tag_left">Java Management</span>
+              <span class="reveal-badge-tag" data-i18n="reveal_p3_tag_right">Auto-Provisioned</span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         SECTION 3: YOUR GAME, ORGANIZED (Instance Management)
+         ==================================================================== -->
+    <section class="section-spacing" id="organization">
+      <div class="container">
+        
+        <div class="editorial-instances-grid">
+          
+          <!-- Editorial Narrative -->
+          <div class="editorial-instances-text">
+            <div class="section-eyebrow">
+              <span class="eyebrow-dot"></span>
+              <span data-i18n="inst_eyebrow">Instance Management</span>
+            </div>
+            <h2 class="section-title" data-i18n-html="inst_title">
+              Your game.<br>
+              <em>Organized with precision.</em>
+            </h2>
+            <p class="section-description" data-i18n="inst_desc">
+              Different worlds have completely different requirements. Quix makes it effortless to create and maintain independent installations across Vanilla, Fabric, Forge, NeoForge, and Quilt.
             </p>
-            <ul class="space-y-3 text-sm text-slate-400">
-              <li class="flex items-start gap-3"><i data-lucide="x-circle" class="w-5 h-5 text-red-400 shrink-0 mt-0.5"></i><span>Mod configs silently colliding and corrupting keybindings</span></li>
-              <li class="flex items-start gap-3"><i data-lucide="x-circle" class="w-5 h-5 text-red-400 shrink-0 mt-0.5"></i><span>Manual Java version path configuration for 1.12 vs 1.21</span></li>
-              <li class="flex items-start gap-3"><i data-lucide="x-circle" class="w-5 h-5 text-red-400 shrink-0 mt-0.5"></i><span>Launchers bloated with unskippable video ads and crypto noise</span></li>
-            </ul>
+
+            <div class="editorial-distinction-box">
+              <div class="distinction-headline">
+                <svg viewBox="0 0 20 20" width="16" height="16" fill="currentColor"><path fill-rule="evenodd" d="M18 10a8 8 0 1 1-16 0 8 8 0 0 1 16 0Zm-7-4a1 1 0 1 1-2 0 1 1 0 0 1 2 0ZM9 9a1 1 0 0 0 0 2v3a1 1 0 0 0 1 1h1a1 1 0 1 0 0-2v-3a1 1 0 0 0-1-1H9Z" clip-rule="evenodd"/></svg>
+                <span data-i18n="inst_dist_headline">Core Product Distinction</span>
+              </div>
+              <p class="distinction-prose" data-i18n-html="inst_dist_prose">
+                <strong>Mods</strong> can be added directly into your existing compatible instances.<br>
+                <strong>Modpacks</strong> are complete installations and automatically generate new independent instances with their required loaders and runtime settings.
+              </p>
+            </div>
           </div>
 
-          <!-- Card 2: The Quix Solution -->
-          <div class="p-8 sm:p-10 rounded-2xl bg-gradient-to-b from-red-950/20 to-quix-surface border border-red-500/30 shadow-[0_0_40px_rgba(229,72,77,0.15)] relative overflow-hidden">
-            <div class="text-xs font-mono uppercase text-red-400 tracking-wider font-bold mb-4">02 / The Quix Architecture</div>
-            <h3 class="font-display font-bold text-2xl text-white mb-4">Strict Instance Sandboxing</h3>
-            <p class="text-slate-300 text-sm leading-relaxed mb-6">
-              Quix treats every setup as an isolated container. Your 1.20.1 Forge factory world and your 1.21.1 Fabric speedrun profile live in completely separate directories. Nothing leaks, nothing collides.
-            </p>
-            <ul class="space-y-3 text-sm text-slate-200">
-              <li class="flex items-start gap-3"><i data-lucide="check-circle-2" class="w-5 h-5 text-emerald-400 shrink-0 mt-0.5"></i><span>Complete separation: dedicated <code class="text-white bg-white/10 px-1 py-0.5 rounded">mods/</code>, <code class="text-white bg-white/10 px-1 py-0.5 rounded">saves/</code>, and <code class="text-white bg-white/10 px-1 py-0.5 rounded">options.txt</code></span></li>
-              <li class="flex items-start gap-3"><i data-lucide="check-circle-2" class="w-5 h-5 text-emerald-400 shrink-0 mt-0.5"></i><span>Automated OpenJDK orchestration: automatically pins Java 8, 17, or 21</span></li>
-              <li class="flex items-start gap-3"><i data-lucide="check-circle-2" class="w-5 h-5 text-emerald-400 shrink-0 mt-0.5"></i><span>Zero promotional banners, zero telemetry trackers, instant startup</span></li>
-            </ul>
+          <!-- Multi-Instance Stack Visual Showcase -->
+          <div class="instance-cards-stack">
+            
+            <div class="instance-card-row featured">
+              <div class="instance-lead-info">
+                <svg class="voxel-cube-icon" viewBox="0 0 20 20" width="24" height="24" aria-hidden="true">
+                  <polygon points="10,2 18,6.5 10,11 2,6.5" fill="#3D5A45"/>
+                  <polygon points="2,6.5 10,11 10,19 2,14.5" fill="#2B1F1D"/>
+                  <polygon points="10,11 18,6.5 18,14.5 10,19" fill="#E5484D"/>
+                </svg>
+                <div class="instance-names-group">
+                  <h4>Atmospheric Horizons</h4>
+                  <p>NeoForge 21.1 • Minecraft 1.21.1 • 84 Mods • Complementary Shaders</p>
+                </div>
+              </div>
+              <div class="instance-quick-action">
+                <span data-i18n="inst_btn_play">Play Instance →</span>
+              </div>
+            </div>
+
+            <div class="instance-card-row instance-create">
+              <div class="instance-lead-info">
+                <svg class="voxel-cube-icon" viewBox="0 0 20 20" width="24" height="24" aria-hidden="true">
+                  <polygon points="10,2 18,6.5 10,11 2,6.5" fill="#F59E0B"/>
+                  <polygon points="2,6.5 10,11 10,19 2,14.5" fill="#B45309"/>
+                  <polygon points="10,11 18,6.5 18,14.5 10,19" fill="#78350F"/>
+                </svg>
+                <div class="instance-names-group">
+                  <h4>Create: Steam & Rails</h4>
+                  <p>Forge 47.3 • Minecraft 1.20.1 • 126 Mods • Kinetic Automation</p>
+                </div>
+              </div>
+              <div class="instance-quick-action" style="color: var(--text-secondary);">
+                <span data-i18n="inst_btn_ready">Launch Ready</span>
+              </div>
+            </div>
+
+            <div class="instance-card-row instance-speedrun">
+              <div class="instance-lead-info">
+                <svg class="voxel-cube-icon" viewBox="0 0 20 20" width="24" height="24" aria-hidden="true">
+                  <polygon points="10,2 18,6.5 10,11 2,6.5" fill="#2DD4BF"/>
+                  <polygon points="2,6.5 10,11 10,19 2,14.5" fill="#0F766E"/>
+                  <polygon points="10,11 18,6.5 18,14.5 10,19" fill="#134E4A"/>
+                </svg>
+                <div class="instance-names-group">
+                  <h4>Speedrun Practice</h4>
+                  <p>Fabric 0.16 • Minecraft 1.21.1 • 12 Mods • Fast Reset</p>
+                </div>
+              </div>
+              <div class="instance-quick-action" style="color: var(--text-secondary);">
+                <span>Launch Ready</span>
+              </div>
+            </div>
+
+            <div class="instance-card-row instance-vanilla">
+              <div class="instance-lead-info">
+                <svg class="voxel-cube-icon" viewBox="0 0 20 20" width="24" height="24" aria-hidden="true">
+                  <polygon points="10,2 18,6.5 10,11 2,6.5" fill="#5E8E3E"/>
+                  <polygon points="2,6.5 10,11 10,19 2,14.5" fill="#866043"/>
+                  <polygon points="10,11 18,6.5 18,14.5 10,19" fill="#6B4C35"/>
+                </svg>
+                <div class="instance-names-group">
+                  <h4>Pure Vanilla Survival</h4>
+                  <p>Official Release • Minecraft 1.21.4 • Unmodified • Seed: 84920419</p>
+                </div>
+              </div>
+              <div class="instance-quick-action" style="color: var(--text-secondary);">
+                <span>Launch Ready</span>
+              </div>
+            </div>
+
           </div>
 
         </div>
@@ -713,114 +680,123 @@
       </div>
     </section>
 
-    <!-- Glowing Laser Line Divider -->
-    <div class="max-w-5xl mx-auto px-4 my-2 flex items-center justify-center gap-4 reveal">
-      <div class="h-px bg-gradient-to-r from-transparent via-red-500/40 to-transparent flex-grow"></div>
-      <div class="w-2 h-2 rotate-45 bg-red-500 shadow-[0_0_12px_rgba(229,72,77,0.9)]"></div>
-      <div class="h-px bg-gradient-to-r from-transparent via-red-500/40 to-transparent flex-grow"></div>
-    </div>
-
-    <!-- SECTION 3: BENTO FEATURE SHOWCASE -->
-    <section class="py-24 relative" id="architecture">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- ====================================================================
+         SECTION 4: DISCOVER MORE (Content Discovery Interface)
+         ==================================================================== -->
+    <section class="section-spacing" id="discovery" style="background: radial-gradient(ellipse at 50% 0%, rgba(22, 27, 34, 0.6) 0%, transparent 60%);">
+      <div class="container">
         
-        <div class="max-w-3xl mb-16 reveal">
-          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-500/10 border border-red-500/20 text-xs font-mono uppercase text-red-400 mb-4">
-            <span>Planned Capabilities</span>
+        <div class="section-header center">
+          <div class="section-eyebrow">
+            <span class="eyebrow-dot"></span>
+            <span data-i18n="disc_eyebrow">Content Discovery</span>
           </div>
-          <h2 class="font-display font-extrabold text-3xl sm:text-5xl tracking-tight text-white mb-4">
-            Engineered for speed.<br>
-            <span class="text-transparent bg-clip-text bg-gradient-to-r from-white via-red-200 to-red-500">Obsessed with the details.</span>
+          <h2 class="section-title" data-i18n-html="disc_title">
+            Discover more.<br>
+            <em>Without leaving your launcher.</em>
           </h2>
-          <p class="text-slate-400 text-base sm:text-lg">
-            Every capability in Quix is designed around player autonomy, stability, and a clean desktop footprint.
+          <p class="section-description" data-i18n="disc_desc">
+            Explore mods, modpacks, shaders and resource packs through an integrated discovery interface with category filters and clear dependency checks.
           </p>
         </div>
 
-        <!-- Bento Grid with Hover Auras -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Content Discovery Canvas Component -->
+        <div class="discovery-showcase-container">
           
-          <!-- Bento 1: Wide Card -->
-          <div class="glass-card p-8 rounded-2xl lg:col-span-2 flex flex-col justify-between reveal">
-            <div>
-              <div class="w-12 h-12 rounded-xl bg-red-500/10 border border-red-500/20 flex items-center justify-center text-red-400 mb-6">
-                <i data-lucide="box" class="w-6 h-6"></i>
-              </div>
-              <h3 class="font-display font-bold text-2xl text-white mb-3">True Instance Isolation</h3>
-              <p class="text-slate-400 text-sm leading-relaxed max-w-xl">
-                Run Minecraft 1.7.10 with OptiFine alongside 1.21.1 NeoForge with Iris without cross-contamination. Each profile owns its dedicated worlds, shaderpacks, and resource packs.
-              </p>
+          <div class="discovery-search-header">
+            <div class="discovery-search-input">
+              <svg viewBox="0 0 20 20" width="16" height="16" fill="currentColor"><path fill-rule="evenodd" d="M9 3.5a5.5 5.5 0 1 0 0 11 5.5 5.5 0 0 0 0-11ZM2 9a7 7 0 1 1 12.452 4.391l3.328 3.329a.75.75 0 1 1-1.06 1.06l-3.329-3.328A7 7 0 0 1 2 9Z" clip-rule="evenodd"/></svg>
+              <span data-i18n="disc_search_ph">Search community projects by title, author or category...</span>
             </div>
-            <div class="mt-8 p-3 rounded-xl bg-black/40 border border-white/[0.06] flex items-center justify-between text-xs font-mono text-slate-400">
-              <span>Path: /quix/instances/survival-2026/</span>
-              <span class="badge badge-error badge-sm text-[10px]">Zero Leakage</span>
+
+            <div class="discovery-filter-pills">
+              <button class="filter-pill-btn active" type="button" data-filter="all" data-i18n="disc_filter_all">All Content</button>
+              <button class="filter-pill-btn" type="button" data-filter="mods" data-i18n="disc_filter_mods">Mods</button>
+              <button class="filter-pill-btn" type="button" data-filter="modpacks" data-i18n="disc_filter_modpacks">Modpacks</button>
+              <button class="filter-pill-btn" type="button" data-filter="shaders" data-i18n="disc_filter_shaders">Shaders</button>
+              <button class="filter-pill-btn" type="button" data-filter="resourcepacks" data-i18n="disc_filter_resourcepacks">Resource Packs</button>
             </div>
           </div>
 
-          <!-- Bento 2 -->
-          <div class="glass-card p-8 rounded-2xl flex flex-col justify-between reveal">
-            <div>
-              <div class="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 mb-6">
-                <i data-lucide="compass" class="w-6 h-6"></i>
+          <div class="discovery-results-grid">
+            
+            <!-- Project 1 -->
+            <div class="discovery-project-card" data-category="mods">
+              <div>
+                <div class="project-card-top">
+                  <div class="project-icon-square">⚡</div>
+                  <span class="provider-source-tag tag-modrinth">Modrinth</span>
+                </div>
+                <h4 class="project-card-title">Sodium</h4>
+                <p class="project-card-summary" data-i18n="disc_sodium_summary">
+                  Modern graphics rendering engine replacing the vanilla pipeline to drastically improve frame rates and reduce stuttering.
+                </p>
               </div>
-              <h3 class="font-display font-bold text-xl text-white mb-3">Dual Ecosystem Discovery</h3>
-              <p class="text-slate-400 text-sm leading-relaxed">
-                Search Modrinth and CurseForge simultaneously. Quix automatically resolves dependency trees so you never encounter missing library errors.
-              </p>
+              <div class="project-card-action-bar">
+                <span>NeoForge & Fabric</span>
+                <span class="btn-install-target" data-i18n="disc_add_btn">Add to Instance +</span>
+              </div>
             </div>
-            <div class="mt-6 p-2.5 rounded-lg bg-black/40 border border-white/[0.06] text-xs font-mono text-slate-400 flex justify-between">
-              <span>APIs: Modrinth v2 + CurseForge</span>
+
+            <!-- Project 2 -->
+            <div class="discovery-project-card" data-category="shaders">
+              <div>
+                <div class="project-card-top">
+                  <div class="project-icon-square">🔮</div>
+                  <span class="provider-source-tag tag-modrinth">Modrinth</span>
+                </div>
+                <h4 class="project-card-title">Iris Shaders</h4>
+                <p class="project-card-summary" data-i18n="disc_iris_summary">
+                  Modern shaderpack loader compatible with existing OptiFine shader packs with smooth chunk compilation.
+                </p>
+              </div>
+              <div class="project-card-action-bar">
+                <span>Fabric & NeoForge</span>
+                <span class="btn-install-target">Add to Instance +</span>
+              </div>
             </div>
+
+            <!-- Project 3 -->
+            <div class="discovery-project-card" data-category="mods">
+              <div>
+                <div class="project-card-top">
+                  <div class="project-icon-square">⚙️</div>
+                  <span class="provider-source-tag tag-curseforge">Planned CurseForge*</span>
+                </div>
+                <h4 class="project-card-title">Create Mod</h4>
+                <p class="project-card-summary" data-i18n="disc_create_summary">
+                  Aesthetic machinery, rotational kinetics, and mechanical automation systems for builders and engineers.
+                </p>
+              </div>
+              <div class="project-card-action-bar">
+                <span>Forge & NeoForge</span>
+                <span class="btn-install-target">Add to Instance +</span>
+              </div>
+            </div>
+
+            <!-- Project 4 -->
+            <div class="discovery-project-card" data-category="modpacks">
+              <div>
+                <div class="project-card-top">
+                  <div class="project-icon-square">📦</div>
+                  <span class="provider-source-tag tag-modrinth">Modrinth</span>
+                </div>
+                <h4 class="project-card-title">Fabulously Optimized</h4>
+                <p class="project-card-summary" data-i18n="disc_fab_summary">
+                  Curated performance and graphics modpack focused on maximizing frame rates with vanilla parity.
+                </p>
+              </div>
+              <div class="project-card-action-bar">
+                <span>Modpack (Complete)</span>
+                <span class="btn-install-target" data-i18n="disc_create_pack_btn">Create New Instance +</span>
+              </div>
+            </div>
+
           </div>
 
-          <!-- Bento 3 -->
-          <div class="glass-card p-8 rounded-2xl flex flex-col justify-between reveal">
-            <div>
-              <div class="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 mb-6">
-                <i data-lucide="cpu" class="w-6 h-6"></i>
-              </div>
-              <h3 class="font-display font-bold text-xl text-white mb-3">Automatic Java Orchestration</h3>
-              <p class="text-slate-400 text-sm leading-relaxed">
-                Never wrestle with <code class="text-amber-300">JAVA_HOME</code> again. Quix fetches and pairs the exact compatible OpenJDK build (8, 17, or 21) required for your loader.
-              </p>
-            </div>
-            <div class="mt-6 p-2.5 rounded-lg bg-black/40 border border-white/[0.06] text-xs font-mono text-slate-400 flex justify-between">
-              <span>Temurin / GraalVM</span>
-              <span class="text-amber-400 font-bold">Auto-Provisioned</span>
-            </div>
-          </div>
-
-          <!-- Bento 4 -->
-          <div class="glass-card p-8 rounded-2xl flex flex-col justify-between reveal">
-            <div>
-              <div class="w-12 h-12 rounded-xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400 mb-6">
-                <i data-lucide="sparkles" class="w-6 h-6"></i>
-              </div>
-              <h3 class="font-display font-bold text-xl text-white mb-3">Shader & PBR Manager</h3>
-              <p class="text-slate-400 text-sm leading-relaxed">
-                Hot-swap shader packs, tweak shadow resolutions, and toggle LabPBR textures with live previews before entering your world.
-              </p>
-            </div>
-            <div class="mt-6 p-2.5 rounded-lg bg-black/40 border border-white/[0.06] text-xs font-mono text-slate-400 flex justify-between">
-              <span>Iris & Oculus Compatible</span>
-            </div>
-          </div>
-
-          <!-- Bento 5: Wide Card -->
-          <div class="glass-card p-8 rounded-2xl lg:col-span-2 flex flex-col justify-between reveal">
-            <div>
-              <div class="w-12 h-12 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 mb-6">
-                <i data-lucide="history" class="w-6 h-6"></i>
-              </div>
-              <h3 class="font-display font-bold text-2xl text-white mb-3">Snapshot Vault & 1-Click Rollback</h3>
-              <p class="text-slate-400 text-sm leading-relaxed max-w-xl">
-                Updating a modpack with 100 mods shouldn't risk your worlds. Quix creates atomic pre-update snapshots, giving you instant rollback if a new mod version crashes on startup.
-              </p>
-            </div>
-            <div class="mt-8 p-3 rounded-xl bg-black/40 border border-white/[0.06] flex items-center justify-between text-xs font-mono text-slate-400">
-              <span>Rollback Protocol: `quix snapshot restore`</span>
-              <span class="text-cyan-400 font-bold">Crash Proof</span>
-            </div>
+          <div class="discovery-legal-callout">
+            <span data-i18n="disc_legal_callout">Integration notice: Modrinth API and planned CurseForge API connectivity are subject to developer platform approval, relevant terms, and API availability.</span>
+            <span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--accent-red-soft);" data-i18n="disc_legal_badge">Planned · Subject to Approval</span>
           </div>
 
         </div>
@@ -828,98 +804,74 @@
       </div>
     </section>
 
-    <!-- Glowing Laser Line Divider -->
-    <div class="max-w-5xl mx-auto px-4 my-2 flex items-center justify-center gap-4 reveal">
-      <div class="h-px bg-gradient-to-r from-transparent via-red-500/40 to-transparent flex-grow"></div>
-      <div class="w-2 h-2 rotate-45 bg-red-500 shadow-[0_0_12px_rgba(229,72,77,0.9)]"></div>
-      <div class="h-px bg-gradient-to-r from-transparent via-red-500/40 to-transparent flex-grow"></div>
-    </div>
-
-    <!-- SECTION 4: DEVELOPMENT ROADMAP (DAISYUI TIMELINE) -->
-    <section class="py-24 border-t border-white/[0.08] bg-quix-canvas/40 relative" id="roadmap">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- ====================================================================
+         SECTION 5: EVERYTHING UNDER CONTROL (Smart Essentials)
+         ==================================================================== -->
+    <section class="section-spacing" id="control">
+      <div class="container">
         
-        <div class="text-center max-w-3xl mx-auto mb-16 reveal">
-          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-500/10 border border-red-500/20 text-xs font-mono uppercase text-red-400 mb-4">
-            <span>Transparent Development</span>
+        <div class="section-header">
+          <div class="section-eyebrow">
+            <span class="eyebrow-dot"></span>
+            <span data-i18n="ctrl_eyebrow">System & Reliability</span>
           </div>
-          <h2 class="font-display font-extrabold text-3xl sm:text-5xl tracking-tight text-white mb-5">
-            The engineering ledger.
+          <h2 class="section-title" data-i18n-html="ctrl_title">
+            Everything under control.<br>
+            <em>Without the complexity.</em>
           </h2>
-          <p class="text-slate-400 text-base sm:text-lg">
-            Quix is an independent initiative currently in active planning and foundational architecture. We build in public with zero false promises.
+          <p class="section-description" data-i18n="ctrl_desc">
+            Quix handles the technical overhead in the background so you can spend less time configuring directories and more time in your worlds.
           </p>
         </div>
 
-        <!-- 4-Phase Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 reveal">
+        <div class="controls-trio-grid">
           
-          <!-- Phase 1 -->
-          <div class="p-6 rounded-2xl bg-gradient-to-b from-red-950/30 to-quix-surface border border-red-500/40 shadow-[0_0_30px_rgba(229,72,77,0.2)] flex flex-col justify-between">
+          <!-- Control 1 -->
+          <div class="control-pillar-card">
             <div>
-              <div class="flex items-center justify-between text-xs font-mono mb-4">
-                <span class="text-red-400 font-bold">PHASE 01</span>
-                <span class="badge badge-error badge-sm text-[10px] text-white">In Progress</span>
+              <div class="control-pillar-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 14h3M1 9h3M1 14h3"/></svg>
               </div>
-              <h3 class="font-display font-bold text-lg text-white mb-2">Architecture & Specs</h3>
-              <p class="text-xs text-slate-400 leading-relaxed">Designing the sandbox filesystem schema, launch argument generator, and brand identity.</p>
+              <h3 class="control-pillar-title" data-i18n="ctrl_c1_title">Smart Java Selection</h3>
+              <p class="control-pillar-text" data-i18n="ctrl_c1_text">
+                Designed to automatically detect and suggest compatible OpenJDK builds for your instance loader (Java 8, 17, or 21), minimizing manual environment variable editing.
+              </p>
             </div>
-            <ul class="text-xs text-slate-400 space-y-1.5 font-mono mt-6 border-t border-white/[0.08] pt-4">
-              <li>✓ Storage schema design</li>
-              <li>✓ Brand & landing site</li>
-              <li>• Configuration schemas</li>
-            </ul>
+            <div class="control-pillar-status">
+              <span data-i18n="ctrl_c1_status">✦ Planned automated runtime manager</span>
+            </div>
           </div>
 
-          <!-- Phase 2 -->
-          <div class="p-6 rounded-2xl bg-quix-surface/70 border border-white/[0.08] flex flex-col justify-between">
+          <!-- Control 2 -->
+          <div class="control-pillar-card">
             <div>
-              <div class="flex items-center justify-between text-xs font-mono mb-4">
-                <span class="text-slate-500 font-bold">PHASE 02</span>
-                <span class="badge badge-ghost badge-sm text-[10px]">Upcoming</span>
+              <div class="control-pillar-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
               </div>
-              <h3 class="font-display font-bold text-lg text-white mb-2">Provider & Auth Engine</h3>
-              <p class="text-xs text-slate-400 leading-relaxed">Official Microsoft authentication client and Modrinth/CurseForge public API wrappers.</p>
+              <h3 class="control-pillar-title" data-i18n="ctrl_c2_title">Custom Instance Settings</h3>
+              <p class="control-pillar-text" data-i18n="ctrl_c2_text">
+                Configure dedicated window resolutions, allocated memory thresholds, and separate game directories for each profile independently.
+              </p>
             </div>
-            <ul class="text-xs text-slate-500 space-y-1.5 font-mono mt-6 border-t border-white/[0.08] pt-4">
-              <li>• Microsoft OAuth flow</li>
-              <li>• Modrinth & CurseForge API</li>
-              <li>• Dependency graph engine</li>
-            </ul>
+            <div class="control-pillar-status">
+              <span data-i18n="ctrl_c2_status">✦ Planned per-instance controls</span>
+            </div>
           </div>
 
-          <!-- Phase 3 -->
-          <div class="p-6 rounded-2xl bg-quix-surface/70 border border-white/[0.08] flex flex-col justify-between">
+          <!-- Control 3 -->
+          <div class="control-pillar-card">
             <div>
-              <div class="flex items-center justify-between text-xs font-mono mb-4">
-                <span class="text-slate-500 font-bold">PHASE 03</span>
-                <span class="badge badge-ghost badge-sm text-[10px]">Planned</span>
+              <div class="control-pillar-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
               </div>
-              <h3 class="font-display font-bold text-lg text-white mb-2">Desktop Application</h3>
-              <p class="text-xs text-slate-400 leading-relaxed">Native Windows desktop shell, automated Java runtime downloader, and shader controls.</p>
+              <h3 class="control-pillar-title" data-i18n="ctrl_c3_title">Safe Updates & Local Backups</h3>
+              <p class="control-pillar-text" data-i18n="ctrl_c3_text">
+                Manage updates with clear choices instead of unexpected overwrite prompts. Local snapshot backups help safeguard your configurations before testing experimental mods.
+              </p>
             </div>
-            <ul class="text-xs text-slate-500 space-y-1.5 font-mono mt-6 border-t border-white/[0.08] pt-4">
-              <li>• Fast Windows UI shell</li>
-              <li>• Automated Java downloader</li>
-              <li>• Crash log diagnostic parser</li>
-            </ul>
-          </div>
-
-          <!-- Phase 4 -->
-          <div class="p-6 rounded-2xl bg-quix-surface/70 border border-white/[0.08] flex flex-col justify-between">
-            <div>
-              <div class="flex items-center justify-between text-xs font-mono mb-4">
-                <span class="text-slate-500 font-bold">PHASE 04</span>
-                <span class="badge badge-ghost badge-sm text-[10px]">Future</span>
-              </div>
-              <h3 class="font-display font-bold text-lg text-white mb-2">Community Testing</h3>
-              <p class="text-xs text-slate-400 leading-relaxed">Closed alpha builds for community feedback, stability testing, and public installer release.</p>
+            <div class="control-pillar-status">
+              <span data-i18n="ctrl_c3_status">✦ Planned snapshot vault</span>
             </div>
-            <ul class="text-xs text-slate-500 space-y-1.5 font-mono mt-6 border-t border-white/[0.08] pt-4">
-              <li>• Closed alpha testing</li>
-              <li>• Performance benchmarking</li>
-              <li>• Public installer release</li>
-            </ul>
           </div>
 
         </div>
@@ -927,62 +879,102 @@
       </div>
     </section>
 
-    <!-- SECTION 5: FAQ (DAISYUI ACCORDIONS) -->
-    <section class="py-24 relative" id="faq">
-      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- ====================================================================
+         SECTION 6: DEVELOPMENT (Project Roadmap)
+         ==================================================================== -->
+    <section class="section-spacing" id="roadmap" style="border-top: 1px solid var(--border-hairline); border-bottom: 1px solid var(--border-hairline); background: radial-gradient(ellipse at 50% 100%, rgba(229, 72, 77, 0.08) 0%, transparent 65%);">
+      <div class="container">
         
-        <div class="text-center max-w-2xl mx-auto mb-16 reveal">
-          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-500/10 border border-red-500/20 text-xs font-mono uppercase text-red-400 mb-4">
-            <span>Got Questions?</span>
+        <div class="section-header center">
+          <div class="section-eyebrow">
+            <span class="eyebrow-dot"></span>
+            <span data-i18n="road_eyebrow">Project Status</span>
           </div>
-          <h2 class="font-display font-extrabold text-3xl sm:text-4xl tracking-tight text-white mb-3">
-            Frequently Asked Questions
+          <h2 class="section-title" data-i18n-html="road_title">
+            Planned with care.<br>
+            <em>One milestone at a time.</em>
           </h2>
-          <p class="text-slate-400 text-sm">
-            Everything you need to know about the Quix project and its direction.
+          <p class="section-description" data-i18n="road_desc">
+            Quix is an independent project currently in early planning and architecture. While the launcher repository is private during this foundational stage, our roadmap, design iterations, and milestones are shared openly with the community.
           </p>
         </div>
 
-        <div class="space-y-4 reveal">
+        <div class="development-roadmap-row">
           
-          <div class="collapse collapse-arrow bg-quix-surface/70 border border-white/[0.08] rounded-2xl">
-            <input type="radio" name="faq-accordion" checked="checked" /> 
-            <div class="collapse-title text-base font-semibold text-white">
-              When can I download Quix?
+          <!-- Phase 01 -->
+          <div class="roadmap-milestone-box current">
+            <div>
+              <div class="milestone-top-meta">
+                <span class="milestone-step-tag" data-i18n="road_m1_step">MILESTONE 01</span>
+                <span class="milestone-state-badge state-current-active" data-i18n="road_m1_badge">Current Phase</span>
+              </div>
+              <h3 class="milestone-name" data-i18n="road_m1_title">Design & Planning</h3>
+              <p class="milestone-summary" data-i18n="road_m1_summary">
+                Defining the interface, user experience, instance storage schema, and core architecture.
+              </p>
             </div>
-            <div class="collapse-content text-sm text-slate-400 leading-relaxed">
-              <p>Quix is currently in early architecture and specification (Phase 01). We believe in building a solid, bug-free foundation rather than releasing rushed, unstable software. There is no public download yet — star the project on GitHub to follow our progress!</p>
-            </div>
+            <ul class="milestone-checklist">
+              <li data-i18n="road_m1_c1">Instance storage schema</li>
+              <li data-i18n="road_m1_c2">Brand identity & web presence</li>
+              <li data-i18n="road_m1_c3">User experience architecture</li>
+            </ul>
           </div>
 
-          <div class="collapse collapse-arrow bg-quix-surface/70 border border-white/[0.08] rounded-2xl">
-            <input type="radio" name="faq-accordion" /> 
-            <div class="collapse-title text-base font-semibold text-white">
-              Will Quix support both Modrinth and CurseForge?
+          <!-- Phase 02 -->
+          <div class="roadmap-milestone-box">
+            <div>
+              <div class="milestone-top-meta">
+                <span class="milestone-step-tag" data-i18n="road_m2_step">MILESTONE 02</span>
+                <span class="milestone-state-badge state-future" data-i18n="road_m2_badge">Upcoming</span>
+              </div>
+              <h3 class="milestone-name" data-i18n="road_m2_title">Core Development</h3>
+              <p class="milestone-summary" data-i18n="road_m2_summary">
+                Building the desktop shell, instance engine, Minecraft launch pipeline, and Modrinth API client.
+              </p>
             </div>
-            <div class="collapse-content text-sm text-slate-400 leading-relaxed">
-              <p>Yes. A primary goal of Quix is to unify discovery. You will be able to browse, install, and update content from both Modrinth and CurseForge inside one cohesive interface with automatic dependency resolution.</p>
-            </div>
+            <ul class="milestone-checklist">
+              <li data-i18n="road_m2_c1">Minecraft launch arguments</li>
+              <li data-i18n="road_m2_c2">Instance sandbox isolation</li>
+              <li data-i18n="road_m2_c3">Provider API integration</li>
+            </ul>
           </div>
 
-          <div class="collapse collapse-arrow bg-quix-surface/70 border border-white/[0.08] rounded-2xl">
-            <input type="radio" name="faq-accordion" /> 
-            <div class="collapse-title text-base font-semibold text-white">
-              Is Quix completely free? Are there advertisements?
+          <!-- Phase 03 -->
+          <div class="roadmap-milestone-box">
+            <div>
+              <div class="milestone-top-meta">
+                <span class="milestone-step-tag" data-i18n="road_m3_step">MILESTONE 03</span>
+                <span class="milestone-state-badge state-future" data-i18n="road_m3_badge">Planned</span>
+              </div>
+              <h3 class="milestone-name" data-i18n="road_m3_title">Testing & Feedback</h3>
+              <p class="milestone-summary" data-i18n="road_m3_summary">
+                Closed community testing, performance benchmarking, stability validation, and bug fixing.
+              </p>
             </div>
-            <div class="collapse-content text-sm text-slate-400 leading-relaxed">
-              <p>Quix is 100% free and independent. There are no video pop-ups, no sponsored banners, and no cryptocurrency schemes. It is engineered purely as a fast, clean tool for players.</p>
-            </div>
+            <ul class="milestone-checklist">
+              <li data-i18n="road_m3_c1">Closed preview testing</li>
+              <li data-i18n="road_m3_c2">System stability checks</li>
+              <li data-i18n="road_m3_c3">Community feedback review</li>
+            </ul>
           </div>
 
-          <div class="collapse collapse-arrow bg-quix-surface/70 border border-white/[0.08] rounded-2xl">
-            <input type="radio" name="faq-accordion" /> 
-            <div class="collapse-title text-base font-semibold text-white">
-              How does Quix handle different Java versions?
+          <!-- Phase 04 -->
+          <div class="roadmap-milestone-box">
+            <div>
+              <div class="milestone-top-meta">
+                <span class="milestone-step-tag" data-i18n="road_m4_step">MILESTONE 04</span>
+                <span class="milestone-state-badge state-future" data-i18n="road_m4_badge">Future</span>
+              </div>
+              <h3 class="milestone-name" data-i18n="road_m4_title">Initial Public Preview</h3>
+              <p class="milestone-summary" data-i18n="road_m4_summary">
+                Sharing an initial preview build once core stability, sandbox safety, and performance are verified.
+              </p>
             </div>
-            <div class="collapse-content text-sm text-slate-400 leading-relaxed">
-              <p>Quix will include an automated Java runtime downloader (using verified Eclipse Temurin OpenJDK builds). When you create an instance, Quix automatically downloads and pins the exact compatible Java runtime (Java 8 for older packs, Java 17 for 1.18–1.20, Java 21 for 1.20.5+) so you never have to configure paths manually.</p>
-            </div>
+            <ul class="milestone-checklist">
+              <li data-i18n="road_m4_c1">Windows installer release</li>
+              <li data-i18n="road_m4_c2">Setup guide & documentation</li>
+              <li data-i18n="road_m4_c3">Iterative update cycle</li>
+            </ul>
           </div>
 
         </div>
@@ -990,233 +982,101 @@
       </div>
     </section>
 
-    <!-- SECTION 6: HIGH-IMPACT FINAL CTA -->
-    <section class="py-24 relative overflow-hidden">
-      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="p-10 sm:p-16 rounded-3xl bg-gradient-to-b from-red-950/40 via-quix-surface to-quix-bg border border-red-500/40 shadow-[0_0_60px_rgba(229,72,77,0.25)] text-center relative overflow-hidden reveal">
-          
-          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-red-500/20 border border-red-500/30 text-xs font-mono uppercase text-red-300 mb-6">
-            <i data-lucide="git-branch" class="w-3.5 h-3.5"></i>
-            <span>Join Early Development</span>
+    <!-- ====================================================================
+         SECTION 7: CLOSING & SITE FOOTER
+         ==================================================================== -->
+    <section class="closing-composition-block">
+      <div class="container">
+        
+        <div class="closing-banner-card">
+          <div class="closing-brand-emblem">
+            <img src="./Quix Icon.png" alt="Quix 3D Logo" class="closing-brand-artwork" width="56" height="56">
+          </div>
+          <div class="section-eyebrow" style="justify-content: center;">
+            <span class="eyebrow-dot"></span>
+            <span data-i18n="closing_eyebrow">Join Early Development</span>
           </div>
 
-          <h2 class="font-display font-extrabold text-3xl sm:text-5xl tracking-tight text-white max-w-2xl mx-auto mb-6">
-            Be part of the journey from day one.
+          <h2 class="closing-title" data-i18n-html="closing_title">
+            We're building something<br>worth waiting for.
           </h2>
 
-          <p class="text-slate-300 text-base sm:text-lg max-w-xl mx-auto leading-relaxed mb-10">
-            Minecraft deserves a launcher that feels as fast, clean, and deliberate as the hardware you play it on. Star our repository on GitHub to track issues, design RFCs, and upcoming alpha builds.
+          <p class="closing-prose" data-i18n="closing_prose">
+            There is no public download available at this stage. Follow our organization on GitHub to track project milestones, release announcements, and development progress as Quix takes shape.
           </p>
 
-          <div class="flex flex-wrap items-center justify-center gap-4">
-            <a href="https://github.com/QuixLauncher/quix-launcher" target="_blank" rel="noopener noreferrer" class="btn btn-shimmer h-12 px-8 rounded-xl text-white font-bold text-sm tracking-wide border-0 shadow-xl flex items-center gap-2.5">
-              <i data-lucide="star" class="w-4 h-4 text-amber-300 fill-amber-300"></i>
-              <span>Star Quix on GitHub</span>
+          <div class="closing-actions-row">
+            <a href="https://github.com/QuixLauncher" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+              <svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor" aria-hidden="true">
+                <path d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"/>
+              </svg>
+              <span data-i18n="closing_btn_follow">Follow on GitHub</span>
             </a>
 
-            <a href="#roadmap" class="btn h-12 px-6 rounded-xl bg-white/[0.05] border border-white/10 hover:bg-white/[0.1] text-white font-semibold text-sm transition-all">
-              <span>View the Ledger</span>
+            <a href="#hero-desktop" class="btn btn-secondary">
+              <span data-i18n="closing_btn_concept">View Desktop Concept</span>
             </a>
           </div>
-
         </div>
+
       </div>
     </section>
 
   </main>
 
-  <!-- SITE FOOTER -->
-  <footer class="border-t border-white/[0.08] bg-quix-bg py-16 text-slate-400 text-sm">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="container">
       
-      <div class="flex flex-col lg:flex-row justify-between items-start gap-12 pb-12 border-b border-white/[0.08]">
-        
-        <!-- Brand Info -->
-        <div class="max-w-md">
-          <a href="#top" class="flex items-center gap-3 text-white mb-4">
-            <div class="w-8 h-8 rounded-lg flex items-center justify-center bg-white/10 border border-white/10">
-              <img src="./favicon.svg" alt="Quix Logo" width="24" height="24">
+      <div class="footer-top-row">
+        <div class="footer-brand-summary">
+          <a href="#top" class="brand-logo">
+            <div class="brand-symbol">
+              <img src="./quix-icon-64.png" srcset="./quix-icon-64.png 1x, ./Quix%20Icon.png 2x" alt="Quix official icon" width="30" height="30">
             </div>
-            <span class="font-display font-bold text-xl text-white">quix</span>
+            <span class="brand-text">Quix</span>
           </a>
-          <p class="text-xs text-slate-400 leading-relaxed">
-            An independent, high-performance Minecraft Java Edition launcher for Windows. Designed for players who value speed, clean instance management, and zero bloat.
+          <p data-i18n="footer_brand_summary">
+            A free, modern Minecraft Java Edition launcher currently in planning and early development, initially for Windows.
           </p>
         </div>
 
-        <!-- Navigation Links -->
-        <div class="flex flex-wrap gap-12 sm:gap-16">
+        <div class="footer-nav-columns">
           <div>
-            <div class="font-display font-bold text-xs uppercase tracking-wider text-white mb-4">Navigation</div>
-            <ul class="space-y-2 text-xs text-slate-400">
-              <li><a href="#hero-preview" class="hover:text-white transition-colors">Desktop View</a></li>
-              <li><a href="#features" class="hover:text-white transition-colors">Why Quix</a></li>
-              <li><a href="#architecture" class="hover:text-white transition-colors">Capabilities</a></li>
-              <li><a href="#roadmap" class="hover:text-white transition-colors">Ledger</a></li>
-              <li><a href="#faq" class="hover:text-white transition-colors">FAQ</a></li>
+            <div class="footer-column-heading" data-i18n="footer_col_nav">Navigation</div>
+            <ul class="footer-column-links">
+              <li><a href="#reveal">Product Reveal</a></li>
+              <li><a href="#organization">Instances</a></li>
+              <li><a href="#discovery">Discovery</a></li>
+              <li><a href="#control">Control</a></li>
+              <li><a href="#roadmap">Development</a></li>
             </ul>
           </div>
 
           <div>
-            <div class="font-display font-bold text-xs uppercase tracking-wider text-white mb-4">Community</div>
-            <ul class="space-y-2 text-xs text-slate-400">
-              <li><a href="https://github.com/QuixLauncher/quix-launcher" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">GitHub Repository ↗</a></li>
-              <li><a href="https://github.com/QuixLauncher/quix-launcher/issues" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">Issue Tracker ↗</a></li>
-              <li><a href="https://github.com/QuixLauncher" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">Quix Organization ↗</a></li>
+            <div class="footer-column-heading" data-i18n="footer_col_project">Project</div>
+            <ul class="footer-column-links">
+              <li><a href="https://github.com/QuixLauncher" target="_blank" rel="noopener noreferrer" data-i18n="footer_link_org">GitHub Organization (@QuixLauncher) ↗</a></li>
+              <li><a href="https://github.com/QuixLauncher/quixlauncher.github.io" target="_blank" rel="noopener noreferrer" data-i18n="footer_link_web_repo">Website Repository (Public) ↗</a></li>
+              <li><a href="https://github.com/QuixLauncher" target="_blank" rel="noopener noreferrer" data-i18n="footer_link_updates">Development Updates ↗</a></li>
             </ul>
           </div>
         </div>
-
       </div>
 
-      <!-- Legal Disclaimer -->
-      <div class="pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-slate-500">
-        <p class="max-w-3xl leading-relaxed">
-          Quix is an independent open-source project and is not affiliated with, endorsed by, or associated with Mojang Studios, Microsoft Corporation, CurseForge, or Modrinth. Minecraft is a registered trademark of Mojang AB / Microsoft Corporation.
+      <div class="footer-legal-notice">
+        <p class="legal-prose-text" data-i18n="footer_legal_prose">
+          Quix is an independent project and is not affiliated with, endorsed by, or associated with Mojang Studios, Microsoft Corporation, CurseForge, or Modrinth. Minecraft is a trademark of its respective owner. Features, third-party integrations, and UI visuals shown are conceptual and subject to development progress and relevant platform permissions.
         </p>
-        <div class="font-mono text-slate-500 shrink-0">
-          © 2026 Quix Launcher Team.
+        <div class="footer-copyright" data-i18n="footer_copyright">
+          © 2026 Quix. All rights reserved.
         </div>
       </div>
 
     </div>
   </footer>
 
-  <!-- SCRIPT LOGIC: Lucide Icons, Tab Switching, Instance Switcher, RAM Slider, Scroll Reveal -->
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      // 1. Initialize Lucide Icons
-      if (window.lucide) {
-        lucide.createIcons();
-      }
-
-      // 2. Cinematic Smooth Scroll Reveal (Auto-unobserve for 120fps performance)
-      const reveals = document.querySelectorAll('.reveal');
-      const observer = new IntersectionObserver((entries, obs) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('active');
-            obs.unobserve(entry.target);
-          }
-        });
-      }, {
-        rootMargin: '0px 0px -40px 0px',
-        threshold: 0.1
-      });
-
-      reveals.forEach(el => {
-        const rect = el.getBoundingClientRect();
-        if (rect.top < window.innerHeight) {
-          el.classList.add('active');
-        } else {
-          observer.observe(el);
-        }
-      });
-
-      // 3. Desktop Mockup Tab Switching
-      const tabButtons = document.querySelectorAll('#mockup-nav-tabs .tab-btn');
-      const tabPanes = document.querySelectorAll('.tab-pane');
-
-      tabButtons.forEach(btn => {
-        btn.addEventListener('click', () => {
-          const target = btn.getAttribute('data-tab');
-
-          tabButtons.forEach(b => {
-            b.classList.remove('active', 'bg-red-500/15', 'text-white', 'border-red-500/30', 'shadow-[0_0_15px_rgba(229,72,77,0.2)]');
-            b.classList.add('text-slate-400');
-          });
-          btn.classList.add('active', 'bg-red-500/15', 'text-white', 'border-red-500/30', 'shadow-[0_0_15px_rgba(229,72,77,0.2)]');
-          btn.classList.remove('text-slate-400');
-
-          tabPanes.forEach(pane => {
-            if (pane.id === `pane-${target}`) {
-              pane.classList.remove('hidden');
-              pane.classList.add('block');
-            } else {
-              pane.classList.add('hidden');
-              pane.classList.remove('block');
-            }
-          });
-        });
-      });
-
-      // 4. Interactive Instance Switcher in Sidebar
-      const instanceSwitchers = document.querySelectorAll('.instance-switcher');
-      const titleEl = document.getElementById('card-instance-title');
-      const loaderEl = document.getElementById('card-loader-badge');
-      const mcVerEl = document.getElementById('card-mc-version');
-      const modsEl = document.getElementById('card-mods-count');
-      const playtimeEl = document.getElementById('card-playtime');
-      const breadcrumbEl = document.getElementById('breadcrumb-instance');
-
-      instanceSwitchers.forEach(sw => {
-        sw.addEventListener('click', () => {
-          instanceSwitchers.forEach(s => s.classList.remove('bg-white/[0.08]', 'text-white'));
-          sw.classList.add('bg-white/[0.08]', 'text-white');
-
-          const name = sw.getAttribute('data-instance-name');
-          const loader = sw.getAttribute('data-loader');
-          const mc = sw.getAttribute('data-mc');
-          const mods = sw.getAttribute('data-mods');
-          const playtime = sw.getAttribute('data-playtime');
-
-          if (titleEl) titleEl.textContent = name;
-          if (loaderEl) loaderEl.textContent = loader;
-          if (mcVerEl) mcVerEl.textContent = `Minecraft ${mc}`;
-          if (modsEl) modsEl.textContent = `${mods} Loaded`;
-          if (playtimeEl) playtimeEl.textContent = `${playtime} Logged`;
-          if (breadcrumbEl) breadcrumbEl.textContent = name.toLowerCase().replace(/[^a-z0-9]/g, '-');
-        });
-      });
-
-      // 5. Interactive RAM Slider in Engine Tab
-      const ramRange = document.getElementById('interactive-ram-range');
-      const ramText = document.getElementById('interactive-ram-text');
-      const sidebarRamDisplay = document.getElementById('sidebar-ram-display');
-      const sidebarRamBar = document.getElementById('sidebar-ram-bar');
-
-      if (ramRange) {
-        ramRange.addEventListener('input', (e) => {
-          const val = parseFloat(e.target.value).toFixed(1);
-          const percent = Math.round(((val - 2) / (16 - 2)) * 100);
-
-          if (ramText) ramText.textContent = `${val} GB`;
-          if (sidebarRamDisplay) sidebarRamDisplay.textContent = `${val} / 16 GB`;
-          if (sidebarRamBar) sidebarRamBar.style.width = `${percent}%`;
-        });
-      }
-
-      // 6. Play Button Click Feedback
-      const playBtn = document.getElementById('btn-mock-play');
-      if (playBtn) {
-        playBtn.addEventListener('click', () => {
-          const originalHTML = playBtn.innerHTML;
-          playBtn.innerHTML = `<span>Launching...</span>`;
-          playBtn.classList.add('bg-emerald-600', 'shadow-[0_0_25px_rgba(16,185,129,0.5)]');
-          setTimeout(() => {
-            playBtn.innerHTML = originalHTML;
-            playBtn.classList.remove('bg-emerald-600', 'shadow-[0_0_25px_rgba(16,185,129,0.5)]');
-          }, 1800);
-        });
-      }
-
-      // 7. Smooth Scroll for Anchor Links (But native 120fps mouse wheel scroll)
-      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-          const targetId = this.getAttribute('href');
-          if (targetId === '#' || targetId === '#top') {
-            e.preventDefault();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-            return;
-          }
-          const target = document.querySelector(targetId);
-          if (target) {
-            e.preventDefault();
-            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          }
-        });
-      });
-    });
-  </script>
+  <!-- Interactive JavaScript -->
+  <script src="./script.js"></script>
 </body>
 </html>
